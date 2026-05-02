@@ -1,0 +1,72 @@
+services:
+  # ── Frontend + API (Next.js fullstack) ───────────────────────────────────────
+  - type: web
+    name: desertluxe-frontend
+    runtime: node
+    region: frankfurt          # EU — proche Tunisie + Dubai
+    plan: free
+    rootDir: .
+    buildCommand: npm ci && npx prisma generate && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: desertluxe-db
+          property: connectionString
+      - key: NEXTAUTH_URL
+        sync: false            # à renseigner après déploiement
+      - key: NEXTAUTH_SECRET
+        generateValue: true    # Render génère automatiquement
+      - key: NEXT_PUBLIC_API_URL
+        sync: false            # URL du backend après déploiement
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: NEXT_PUBLIC_WHATSAPP_NUMBER
+        value: "+33600000000"
+      - key: OLLAMA_URL
+        value: "http://localhost:11434"
+      - key: OLLAMA_MODEL
+        value: "qwen2.5:7b"
+
+  # ── Backend Express (API indépendante) ───────────────────────────────────────
+  - type: web
+    name: desertluxe-backend
+    runtime: node
+    region: frankfurt
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: desertluxe-db
+          property: connectionString
+      - key: FRONTEND_URL
+        sync: false            # URL du frontend après déploiement
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+
+# ── Base de données PostgreSQL managée Render ─────────────────────────────────
+databases:
+  - name: desertluxe-db
+    databaseName: desertluxe
+    user: desertluxe_user
+    region: frankfurt
+    plan: free
