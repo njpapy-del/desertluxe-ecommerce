@@ -203,7 +203,7 @@ export default function Hero() {
             />
             <Sparkles className="w-3 h-3 text-gold-400" />
             <span className="text-gold-400 text-[11px] tracking-[0.4em] uppercase font-sans">
-              Nouvelle Collection 2024
+              Nouvelle Collection 2026
             </span>
           </motion.div>
 
