@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, use } from 'react'
+import { useState } from 'react'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,8 +11,8 @@ import { useCartStore } from '@/store/cartStore'
 import ProductCard from '@/components/shop/ProductCard'
 import toast from 'react-hot-toast'
 
-export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id }    = use(params)
+export default function ProductPage({ params }: { params: { id: string } }) {
+  const { id }    = params
   const product   = MOCK_PRODUCTS.find((p) => p.slug === id || p.id === id)
 
   const [activeImg, setActiveImg] = useState(0)

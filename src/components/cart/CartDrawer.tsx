@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,6 +11,11 @@ const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') || 
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, total } = useCartStore()
+
+  // Rehydrate Zustand depuis localStorage après le montage client
+  useEffect(() => {
+    useCartStore.persist.rehydrate()
+  }, [])
 
   const buildWhatsAppMessage = () => {
     const lines = items.map(

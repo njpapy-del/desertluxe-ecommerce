@@ -1,5 +1,3 @@
-'use client'
-
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { CartItem, CartState, Product } from '@/types'
@@ -70,6 +68,7 @@ export const useCartStore = create<CartState>()(
     {
       name: 'desertluxe-cart',
       storage: createJSONStorage(() => localStorage),
+      skipHydration: true,
     }
   )
 )
