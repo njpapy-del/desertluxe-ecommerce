@@ -35,25 +35,25 @@ export const metadata: Metadata = {
 
   // ── Titre ──────────────────────────────────────────────────────────────────
   title: {
-    default:  'Afefluxe | Luxury Bags & Fashion Inspired by Dubai Elegance',
-    template: '%s | Afefluxe',
+    default:  'Ma Luxury | Luxury Bags & Fashion Inspired by Dubai Elegance',
+    template: '%s | Ma Luxury',
   },
 
   // ── Description ────────────────────────────────────────────────────────────
   description:
-    'Afefluxe is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance, modern luxury and desert aesthetics. Fast worldwide delivery.',
+    'Ma Luxury is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance, modern luxury and desert aesthetics. Fast worldwide delivery.',
 
   // ── Mots-clés ──────────────────────────────────────────────────────────────
   keywords: [
     'luxury bags', 'Dubai fashion', 'designer handbags', 'premium accessories',
-    'luxury e-commerce', 'Afefluxe', 'sacs luxe Dubai', 'mode luxe',
+    'luxury e-commerce', 'Ma Luxury', 'sacs luxe Dubai', 'mode luxe',
     'sacs à main créateur', 'accessoires luxe Tunisie',
   ],
 
   // ── Auteur / marque ────────────────────────────────────────────────────────
-  authors:  [{ name: 'Afefluxe', url: BASE_URL }],
-  creator:  'Afefluxe',
-  publisher:'Afefluxe',
+  authors:  [{ name: 'Ma Luxury', url: BASE_URL }],
+  creator:  'Ma Luxury',
+  publisher:'Ma Luxury',
 
   // ── Canonical ──────────────────────────────────────────────────────────────
   alternates: {
@@ -71,15 +71,15 @@ export const metadata: Metadata = {
     locale:      'fr_FR',
     alternateLocale: ['en_US', 'ar_AE'],
     url:         BASE_URL,
-    siteName:    'Afefluxe',
-    title:       'Afefluxe | Luxury Bags & Fashion Inspired by Dubai Elegance',
-    description: 'Afefluxe is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance. Fast worldwide delivery.',
+    siteName:    'Ma Luxury',
+    title:       'Ma Luxury | Luxury Bags & Fashion Inspired by Dubai Elegance',
+    description: 'Ma Luxury is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance. Fast worldwide delivery.',
     images: [
       {
         url:    '/og-image.jpg',
         width:  1200,
         height: 630,
-        alt:    'Afefluxe — Luxury Fashion Inspired by Dubai',
+        alt:    'Ma Luxury — Luxury Fashion Inspired by Dubai',
       },
     ],
   },
@@ -87,9 +87,9 @@ export const metadata: Metadata = {
   // ── Twitter / X Card ───────────────────────────────────────────────────────
   twitter: {
     card:        'summary_large_image',
-    site:        '@afefluxe',
-    creator:     '@afefluxe',
-    title:       'Afefluxe | Luxury Bags & Fashion Inspired by Dubai',
+    site:        '@ma-luxury',
+    creator:     '@ma-luxury',
+    title:       'Ma Luxury | Luxury Bags & Fashion Inspired by Dubai',
     description: 'Premium handbags and accessories inspired by Dubai elegance.',
     images:      ['/og-image.jpg'],
   },
@@ -108,7 +108,7 @@ export const metadata: Metadata = {
   },
 
   // ── App links ──────────────────────────────────────────────────────────────
-  applicationName: 'Afefluxe',
+  applicationName: 'Ma Luxury',
   category:        'shopping',
 }
 

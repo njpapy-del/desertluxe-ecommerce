@@ -66,7 +66,7 @@ export const useCartStore = create<CartState>()(
         get().items.reduce((sum, i) => sum + i.quantity, 0),
     }),
     {
-      name: 'afefluxe-cart',
+      name: 'ma-luxury-cart',
       storage: createJSONStorage(() => localStorage),
       skipHydration: true,
     }

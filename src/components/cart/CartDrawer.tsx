@@ -23,7 +23,7 @@ export default function CartDrawer() {
     )
     lines.push(`\nTOTAL: ${total().toFixed(0)}€`)
     lines.push(`\nPayer en ligne: ${process.env.NEXT_PUBLIC_APP_URL}/checkout`)
-    return encodeURIComponent(`Bonjour AFEFLUXE!\n\nJe souhaite commander:\n${lines.join('\n')}`)
+    return encodeURIComponent(`Bonjour MA LUXURY!\n\nJe souhaite commander:\n${lines.join('\n')}`)
   }
 
   return (
