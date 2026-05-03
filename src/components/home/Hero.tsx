@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
   motion,
@@ -8,6 +8,7 @@ import {
   useTransform,
   useSpring,
   useInView,
+  AnimatePresence,
 } from 'framer-motion'
 
 import { ArrowRight, Sparkles } from 'lucide-react'
@@ -111,10 +112,25 @@ function FloatingStat({
   )
 }
 
+// ─── Images qui alternent en fondu ───────────────────────────────────────────
+const BG_IMAGES = [
+  '/images/hero-dubai.png',
+  '/images/fonddubai.png',
+]
+
 // ─── Main Hero ────────────────────────────────────────────────────────────────
 export default function Hero() {
   const containerRef               = useRef<HTMLDivElement>(null)
   const { scrollY }                = useScroll()
+
+  // Alternance des images toutes les 5 secondes
+  const [imgIndex, setImgIndex]    = useState(0)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setImgIndex((i) => (i + 1) % BG_IMAGES.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
 
   // Parallax: image moves up slower than scroll
   const rawY   = useTransform(scrollY, [0, 700], [0, 180])
@@ -129,20 +145,25 @@ export default function Hero() {
       ref={containerRef}
       className="relative h-[92vh] min-h-[620px] overflow-hidden"
     >
-      {/* ── Background image with parallax + slow zoom ────── */}
+      {/* ── Background images alternantes avec Ken Burns ─── */}
       <motion.div
         className="absolute inset-0 will-change-transform"
         style={{ y: bgY }}
       >
-        {/* Slow Ken Burns zoom */}
-        <motion.div
-          className="absolute inset-[-8%] bg-cover bg-center"
-          style={{
-            backgroundImage: 'url(/images/hero-dubai.png)',
-          }}
-          animate={{ scale: [1, 1.12] }}
-          transition={{ duration: 18, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
-        />
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={imgIndex}
+            className="absolute inset-[-8%] bg-cover bg-center"
+            style={{ backgroundImage: `url(${BG_IMAGES[imgIndex]})` }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, scale: [1, 1.08] }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 1.8, ease: 'easeInOut' },
+              scale:   { duration: 10, ease: 'linear' },
+            }}
+          />
+        </AnimatePresence>
 
         {/* Overlay layers */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/20" />
@@ -152,8 +173,7 @@ export default function Hero() {
         <div
           className="absolute bottom-0 left-0 right-0 h-32 opacity-30"
           style={{
-            background:
-              'linear-gradient(to top, rgba(201,169,110,0.3), transparent)',
+            background: 'linear-gradient(to top, rgba(201,169,110,0.3), transparent)',
           }}
         />
       </motion.div>

@@ -88,6 +88,81 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── Collection robes ─────────────────────────── */}
+      <section className="py-20 bg-luxury-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-gold-400 text-[11px] tracking-[0.35em] uppercase font-sans mb-3">
+              Collection Exclusive
+            </p>
+            <h2 className="font-serif text-4xl text-white mb-4">
+              Robes de Prestige
+            </h2>
+            <div className="w-12 h-px bg-gold-500 mx-auto" />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Robe de Luxe */}
+            <div className="group relative overflow-hidden">
+              <div className="relative h-[520px] overflow-hidden">
+                <img
+                  src="/images/robe-luxe.png"
+                  alt="Robe de Luxe MA LUXURY"
+                  className="w-full h-full object-cover object-top
+                             transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <p className="text-gold-400 text-[10px] tracking-[0.3em] uppercase font-sans mb-2">
+                    Édition Limitée
+                  </p>
+                  <h3 className="font-serif text-2xl text-white mb-3">
+                    Robe Haute Couture
+                  </h3>
+                  <a
+                    href="/shop?category=nouveautes"
+                    className="inline-flex items-center gap-2 text-[11px] text-white/80
+                               tracking-widest uppercase font-sans border-b border-gold-500
+                               pb-0.5 hover:text-gold-400 transition-colors"
+                  >
+                    Découvrir
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Robe Tunis */}
+            <div className="group relative overflow-hidden">
+              <div className="relative h-[520px] overflow-hidden">
+                <img
+                  src="/images/robe-tunis.png"
+                  alt="Robe Tunisie MA LUXURY"
+                  className="w-full h-full object-cover object-top
+                             transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <p className="text-gold-400 text-[10px] tracking-[0.3em] uppercase font-sans mb-2">
+                    Collection Tunisie
+                  </p>
+                  <h3 className="font-serif text-2xl text-white mb-3">
+                    Robe Élégance Orientale
+                  </h3>
+                  <a
+                    href="/shop?category=nouveautes"
+                    className="inline-flex items-center gap-2 text-[11px] text-white/80
+                               tracking-widest uppercase font-sans border-b border-gold-500
+                               pb-0.5 hover:text-gold-400 transition-colors"
+                  >
+                    Découvrir
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Newsletter />
     </>
   )
