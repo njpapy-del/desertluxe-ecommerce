@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { MessageCircle, Mail, MapPin } from 'lucide-react'
+import EyeOfRa from '@/components/ui/EyeOfRa'
 
 // ── Social SVG icons (lucide deprecated social icons → inline SVG) ───────────
 const SocialIcons = {
@@ -60,7 +61,10 @@ export default function Footer() {
           {/* Brand + founder */}
           <div className="lg:col-span-1">
             <span className="font-serif text-2xl tracking-[0.15em] text-white">
-              MA <span className="text-gold-500">LUXURY</span>
+              <span className="inline-flex items-center gap-2">
+                <EyeOfRa className="w-6 h-4 text-gold-500 opacity-90" />
+                MA <span className="text-gold-500">LUXURY</span>
+              </span>
             </span>
             {/* Founder signature */}
             <div className="mt-3 mb-4 pb-4 border-b border-white/10">
