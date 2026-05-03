@@ -13,7 +13,7 @@ function buildProductContext(): string {
 }
 
 function buildSystemPrompt(): string {
-  return `Tu es Leila, la conseillère IA de DESERTLUXE — une marque de mode luxe inspirée de Dubaï.
+  return `Tu es Leila, la conseillère IA de AFEFLUXE — une marque de mode luxe inspirée de Dubaï.
 
 Ta personnalité :
 - Élégante, chaleureuse et professionnelle
@@ -92,13 +92,13 @@ function ruleBasedResponse(message: string): string {
   }
   if (lower.includes('best') || lower.includes('populaire') || lower.includes('recommande')) {
     const best = MOCK_PRODUCTS.filter((p) => p.featured).slice(0, 2).map((p) => `${p.name} (${p.price}€)`).join(' et ')
-    return `Nos pièces phares du moment : ${best}. Des créations incontournables de la collection DESERTLUXE !`
+    return `Nos pièces phares du moment : ${best}. Des créations incontournables de la collection AFEFLUXE !`
   }
   if (lower.includes('whatsapp')) {
     return `Vous pouvez nous contacter ou passer commande directement via WhatsApp au ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+33600000000'}. Notre équipe répond sous 24h. 💬`
   }
   if (lower.includes('bonjour') || lower.includes('hello') || lower.includes('salut') || lower.includes('hi')) {
-    return 'Bonjour ! Bienvenue chez DESERTLUXE. Je suis Leila, votre conseillère. Comment puis-je vous aider à trouver la pièce parfaite ?'
+    return 'Bonjour ! Bienvenue chez AFEFLUXE. Je suis Leila, votre conseillère. Comment puis-je vous aider à trouver la pièce parfaite ?'
   }
 
   const random = MOCK_PRODUCTS[Math.floor(Math.random() * MOCK_PRODUCTS.length)]

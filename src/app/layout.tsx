@@ -35,25 +35,25 @@ export const metadata: Metadata = {
 
   // ── Titre ──────────────────────────────────────────────────────────────────
   title: {
-    default:  'DesertLuxe | Luxury Bags & Fashion Inspired by Dubai Elegance',
-    template: '%s | DesertLuxe',
+    default:  'Afefluxe | Luxury Bags & Fashion Inspired by Dubai Elegance',
+    template: '%s | Afefluxe',
   },
 
   // ── Description ────────────────────────────────────────────────────────────
   description:
-    'DesertLuxe is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance, modern luxury and desert aesthetics. Fast worldwide delivery.',
+    'Afefluxe is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance, modern luxury and desert aesthetics. Fast worldwide delivery.',
 
   // ── Mots-clés ──────────────────────────────────────────────────────────────
   keywords: [
     'luxury bags', 'Dubai fashion', 'designer handbags', 'premium accessories',
-    'luxury e-commerce', 'DesertLuxe', 'sacs luxe Dubai', 'mode luxe',
+    'luxury e-commerce', 'Afefluxe', 'sacs luxe Dubai', 'mode luxe',
     'sacs à main créateur', 'accessoires luxe Tunisie',
   ],
 
   // ── Auteur / marque ────────────────────────────────────────────────────────
-  authors:  [{ name: 'DesertLuxe', url: BASE_URL }],
-  creator:  'DesertLuxe',
-  publisher:'DesertLuxe',
+  authors:  [{ name: 'Afefluxe', url: BASE_URL }],
+  creator:  'Afefluxe',
+  publisher:'Afefluxe',
 
   // ── Canonical ──────────────────────────────────────────────────────────────
   alternates: {
@@ -71,15 +71,15 @@ export const metadata: Metadata = {
     locale:      'fr_FR',
     alternateLocale: ['en_US', 'ar_AE'],
     url:         BASE_URL,
-    siteName:    'DesertLuxe',
-    title:       'DesertLuxe | Luxury Bags & Fashion Inspired by Dubai Elegance',
-    description: 'DesertLuxe is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance. Fast worldwide delivery.',
+    siteName:    'Afefluxe',
+    title:       'Afefluxe | Luxury Bags & Fashion Inspired by Dubai Elegance',
+    description: 'Afefluxe is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance. Fast worldwide delivery.',
     images: [
       {
         url:    '/og-image.jpg',
         width:  1200,
         height: 630,
-        alt:    'DesertLuxe — Luxury Fashion Inspired by Dubai',
+        alt:    'Afefluxe — Luxury Fashion Inspired by Dubai',
       },
     ],
   },
@@ -87,9 +87,9 @@ export const metadata: Metadata = {
   // ── Twitter / X Card ───────────────────────────────────────────────────────
   twitter: {
     card:        'summary_large_image',
-    site:        '@desertluxe',
-    creator:     '@desertluxe',
-    title:       'DesertLuxe | Luxury Bags & Fashion Inspired by Dubai',
+    site:        '@afefluxe',
+    creator:     '@afefluxe',
+    title:       'Afefluxe | Luxury Bags & Fashion Inspired by Dubai',
     description: 'Premium handbags and accessories inspired by Dubai elegance.',
     images:      ['/og-image.jpg'],
   },
@@ -108,7 +108,7 @@ export const metadata: Metadata = {
   },
 
   // ── App links ──────────────────────────────────────────────────────────────
-  applicationName: 'DesertLuxe',
+  applicationName: 'Afefluxe',
   category:        'shopping',
 }
 

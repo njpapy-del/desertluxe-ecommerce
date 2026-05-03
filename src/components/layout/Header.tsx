@@ -92,7 +92,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  DESERT<span className="text-gold-500">LUXE</span>
+                  AFEF<span className="text-gold-500">LUXE</span>
                 </motion.span>
                 <motion.span
                   className="text-[8px] tracking-[0.4em] text-gold-500 uppercase font-sans font-medium -mt-0.5"
@@ -239,7 +239,7 @@ export default function Header() {
             >
               <div className="flex items-center justify-between p-5 border-b border-cream-300">
                 <span className="font-serif text-xl tracking-wider">
-                  DESERT<span className="text-gold-500">LUXE</span>
+                  AFEF<span className="text-gold-500">LUXE</span>
                 </span>
                 <motion.button whileTap={{ scale: 0.9 }} onClick={() => setMobileOpen(false)}>
                   <X className="w-5 h-5" />

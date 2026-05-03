@@ -21,7 +21,7 @@ export default function Newsletter() {
         body: JSON.stringify({ email }),
       })
       setSubmitted(true)
-      toast.success('Bienvenue dans la famille DESERTLUXE!')
+      toast.success('Bienvenue dans la famille AFEFLUXE!')
     } catch {
       toast.error('Erreur, veuillez réessayer.')
     } finally {

@@ -60,7 +60,7 @@ export default function Footer() {
           {/* Brand + founder */}
           <div className="lg:col-span-1">
             <span className="font-serif text-2xl tracking-[0.15em] text-white">
-              DESERT<span className="text-gold-500">LUXE</span>
+              AFEF<span className="text-gold-500">LUXE</span>
             </span>
             {/* Founder signature */}
             <div className="mt-3 mb-4 pb-4 border-b border-white/10">
@@ -167,17 +167,17 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-gold-500 shrink-0" />
                 <a
-                  href="mailto:contact@desertluxe.com"
+                  href="mailto:contact@afefluxe.com"
                   className="text-xs text-cream-400 hover:text-gold-500 transition-colors font-sans"
                 >
-                  contact@desertluxe.com
+                  contact@afefluxe.com
                 </a>
               </li>
             </ul>
 
             {/* WhatsApp CTA */}
             <a
-              href={`https://wa.me/${WHATSAPP.replace(/\D/g, '')}?text=Bonjour DESERTLUXE, j'ai une question.`}
+              href={`https://wa.me/${WHATSAPP.replace(/\D/g, '')}?text=Bonjour AFEFLUXE, j'ai une question.`}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 flex items-center gap-2 bg-[#25D366] text-white px-4 py-2.5
@@ -196,7 +196,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5
                         flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-cream-500 font-sans">
-            © {new Date().getFullYear()} DESERTLUXE — Fondée par Madame Rebbai Afef. Tous droits réservés.
+            © {new Date().getFullYear()} AFEFLUXE — Fondée par Madame Rebbai Afef. Tous droits réservés.
           </p>
           <div className="flex items-center gap-3">
             {['VISA', 'MC', 'AMEX', 'PayPal', 'Apple Pay'].map((pm) => (
