@@ -27,30 +27,89 @@ const cormorant = Cormorant_Garamond({
   display:  'swap',
 })
 
+const BASE_URL = 'https://desertluxe-frontend.onrender.com'
+
 export const metadata: Metadata = {
+  // ── Base URL — résout tous les chemins relatifs (og images, canonical…) ────
+  metadataBase: new URL(BASE_URL),
+
+  // ── Titre ──────────────────────────────────────────────────────────────────
   title: {
-    default:  'DESERTLUXE — Luxury Fashion Inspired by Dubai',
-    template: '%s | DESERTLUXE',
+    default:  'DesertLuxe | Luxury Bags & Fashion Inspired by Dubai Elegance',
+    template: '%s | DesertLuxe',
   },
+
+  // ── Description ────────────────────────────────────────────────────────────
   description:
-    'Sacs a main, accessoires et articles de luxe inspires par Dubai. Livraison mondiale express. Paiement securise.',
-  keywords: ['luxury fashion', 'sacs a main luxe', 'Dubai fashion', 'accessoires luxe'],
-  authors:  [{ name: 'DESERTLUXE' }],
-  creator:  'DESERTLUXE',
+    'DesertLuxe is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance, modern luxury and desert aesthetics. Fast worldwide delivery.',
+
+  // ── Mots-clés ──────────────────────────────────────────────────────────────
+  keywords: [
+    'luxury bags', 'Dubai fashion', 'designer handbags', 'premium accessories',
+    'luxury e-commerce', 'DesertLuxe', 'sacs luxe Dubai', 'mode luxe',
+    'sacs à main créateur', 'accessoires luxe Tunisie',
+  ],
+
+  // ── Auteur / marque ────────────────────────────────────────────────────────
+  authors:  [{ name: 'DesertLuxe', url: BASE_URL }],
+  creator:  'DesertLuxe',
+  publisher:'DesertLuxe',
+
+  // ── Canonical ──────────────────────────────────────────────────────────────
+  alternates: {
+    canonical: BASE_URL,
+  },
+
+  // ── Google Search Console verification ────────────────────────────────────
+  verification: {
+    google: 'kDG7OC1VAzRGKVctU6suy-U-mjwFD1ubjbnOo-IzHpo',
+  },
+
+  // ── Open Graph ─────────────────────────────────────────────────────────────
   openGraph: {
     type:        'website',
     locale:      'fr_FR',
-    siteName:    'DESERTLUXE',
-    title:       'DESERTLUXE — Luxury Fashion Inspired by Dubai',
-    description: 'Mode luxe inspiree de Dubai. Sacs, accessoires et pieces exception.',
-    images:      [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+    alternateLocale: ['en_US', 'ar_AE'],
+    url:         BASE_URL,
+    siteName:    'DesertLuxe',
+    title:       'DesertLuxe | Luxury Bags & Fashion Inspired by Dubai Elegance',
+    description: 'DesertLuxe is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance. Fast worldwide delivery.',
+    images: [
+      {
+        url:    '/og-image.jpg',
+        width:  1200,
+        height: 630,
+        alt:    'DesertLuxe — Luxury Fashion Inspired by Dubai',
+      },
+    ],
   },
+
+  // ── Twitter / X Card ───────────────────────────────────────────────────────
   twitter: {
-    card:    'summary_large_image',
-    title:   'DESERTLUXE',
-    creator: '@desertluxe',
+    card:        'summary_large_image',
+    site:        '@desertluxe',
+    creator:     '@desertluxe',
+    title:       'DesertLuxe | Luxury Bags & Fashion Inspired by Dubai',
+    description: 'Premium handbags and accessories inspired by Dubai elegance.',
+    images:      ['/og-image.jpg'],
   },
-  robots: { index: true, follow: true },
+
+  // ── Indexation robots ──────────────────────────────────────────────────────
+  robots: {
+    index:               true,
+    follow:              true,
+    googleBot: {
+      index:             true,
+      follow:            true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet':       -1,
+    },
+  },
+
+  // ── App links ──────────────────────────────────────────────────────────────
+  applicationName: 'DesertLuxe',
+  category:        'shopping',
 }
 
 export const viewport: Viewport = {
