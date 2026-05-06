@@ -2,48 +2,200 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
-const CATEGORIES = [
+/* ─── Données catégories ────────────────────────────────────────────── */
+const FEATURED = [
   {
-    name:     'Sacs à Main',
-    slug:     'sacs-a-main',
-    image:    'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700&q=85&fit=crop',
-    count:    '48 pièces',
+    name: 'Robes de Luxe',
+    slug: 'robes-luxe',
+    image: '/images/ROBESLUXETURQUE.png',
+    count: '24 pièces',
+    description: 'Élégance orientale · Coupes raffinées · Occasions prestige',
+    badge: 'Best Seller',
   },
   {
-    name:     'Nouvelle Collection',
-    slug:     'nouveautes',
-    image:    'https://images.unsplash.com/photo-1584917865442-de89be144b2a?w=700&q=85&fit=crop',
-    count:    '24 pièces',
-  },
-  {
-    name:     'Accessoires',
-    slug:     'accessoires',
-    image:    'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=700&q=85&fit=crop',
-    count:    '36 pièces',
-  },
-  {
-    name:     'Best Sellers',
-    slug:     'best-sellers',
-    image:    'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=700&q=85&fit=crop',
-    count:    '12 pièces',
+    name: 'Sacs de Luxe',
+    slug: 'sacs-a-main',
+    image: '/images/SACSLUXETURQUE.png',
+    count: '48 pièces',
+    description: 'Maroquinerie premium · Cuirs grainés · Importés de Dubaï',
+    badge: 'Collection Dubaï',
   },
 ]
 
+const CATEGORIES = [
+  {
+    name: 'Robes de Soirée',
+    slug: 'robes-soiree',
+    image: '/images/ROBESOIREETURQUE.png',
+    count: '18 pièces',
+    description: 'Galas, mariages, soirées chics',
+  },
+  {
+    name: 'Robes d\'Été',
+    slug: 'robes-ete',
+    image: '/images/ROBEETETURQUE.png',
+    count: '22 pièces',
+    description: 'Légèreté, couleurs, style balnéaire',
+  },
+  {
+    name: 'Robes Courtes',
+    slug: 'robes-courtes',
+    image: '/images/ROBECOURTEETE.png',
+    count: '16 pièces',
+    description: 'Casual chic, quotidien élégant',
+  },
+  {
+    name: 'Jeans',
+    slug: 'jeans',
+    image: '/images/JEANSTURQUE.png',
+    count: '30 pièces',
+    description: 'Coupes tendance, denim premium',
+  },
+  {
+    name: 'Tennis & Sport',
+    slug: 'tennis',
+    image: '/images/TENNISTURQUE.png',
+    count: '20 pièces',
+    description: 'Style sportswear luxe, confort absolu',
+  },
+]
+
+/* ─── Animations ────────────────────────────────────────────────────── */
 const container = {
   hidden: {},
-  show:   { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
 }
 
 const item = {
-  hidden: { opacity: 0, y: 36, scale: 0.97 },
-  show:   {
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  show: {
     opacity: 1, y: 0, scale: 1,
-    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
   },
 }
 
+/* ─── Carte featured (grande) ───────────────────────────────────────── */
+function FeaturedCard({ cat }: { cat: typeof FEATURED[0] }) {
+  return (
+    <motion.div variants={item}>
+      <motion.div
+        className="relative overflow-hidden h-[420px] md:h-[520px] cursor-pointer group"
+        whileHover={{ scale: 1.01 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      >
+        <Image
+          src={cat.image}
+          alt={cat.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          priority
+        />
+
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent
+                        group-hover:from-black/88 transition-all duration-500" />
+
+        {/* Badge */}
+        {cat.badge && (
+          <div className="absolute top-4 left-4 bg-gold-500 text-white text-[9px]
+                          uppercase tracking-[0.25em] font-sans font-medium px-3 py-1.5">
+            {cat.badge}
+          </div>
+        )}
+
+        {/* Gold border */}
+        <div className="absolute inset-0 border border-transparent
+                        group-hover:border-gold-500/50 transition-colors duration-300
+                        pointer-events-none" />
+
+        {/* Content */}
+        <div className="absolute bottom-0 left-0 right-0 p-7 pointer-events-none">
+          <p className="text-[10px] text-gold-400 tracking-[0.3em] uppercase font-sans mb-2">
+            {cat.count}
+          </p>
+          <h3 className="font-serif text-2xl md:text-3xl text-white mb-2">{cat.name}</h3>
+          <p className="text-cream-300 text-xs font-sans tracking-wide mb-4 opacity-0
+                        group-hover:opacity-100 transition-opacity duration-300">
+            {cat.description}
+          </p>
+          <div className="flex items-center gap-2 text-[11px] text-white/90
+                          tracking-widest uppercase font-sans
+                          translate-y-2 opacity-0
+                          group-hover:opacity-100 group-hover:translate-y-0
+                          transition-all duration-300">
+            Découvrir la collection
+            <ArrowRight className="w-3.5 h-3.5" />
+          </div>
+        </div>
+
+        <Link
+          href={`/shop?category=${cat.slug}`}
+          className="absolute inset-0 z-20"
+          aria-label={`Découvrir ${cat.name}`}
+        />
+      </motion.div>
+    </motion.div>
+  )
+}
+
+/* ─── Carte standard (petite) ───────────────────────────────────────── */
+function CategoryCard({ cat }: { cat: typeof CATEGORIES[0] }) {
+  return (
+    <motion.div variants={item}>
+      <motion.div
+        className="relative overflow-hidden h-52 md:h-64 cursor-pointer group"
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      >
+        <Image
+          src={cat.image}
+          alt={cat.name}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-108"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent
+                        group-hover:from-black/85 transition-all duration-500" />
+
+        <div className="absolute inset-0 border border-transparent
+                        group-hover:border-gold-500/40 transition-colors duration-300
+                        pointer-events-none" />
+
+        <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-none">
+          <p className="text-[9px] text-gold-400 tracking-[0.25em] uppercase font-sans mb-1">
+            {cat.count}
+          </p>
+          <h3 className="font-serif text-base md:text-lg text-white mb-1">{cat.name}</h3>
+          <p className="text-cream-300/80 text-[10px] font-sans leading-snug mb-2
+                        opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {cat.description}
+          </p>
+          <div className="flex items-center gap-1.5 text-[10px] text-white/85
+                          tracking-widest uppercase font-sans
+                          translate-y-1.5 opacity-0
+                          group-hover:opacity-100 group-hover:translate-y-0
+                          transition-all duration-300">
+            Voir
+            <ArrowRight className="w-3 h-3" />
+          </div>
+        </div>
+
+        <Link
+          href={`/shop?category=${cat.slug}`}
+          className="absolute inset-0 z-20"
+          aria-label={`Découvrir ${cat.name}`}
+        />
+      </motion.div>
+    </motion.div>
+  )
+}
+
+/* ─── Section principale ────────────────────────────────────────────── */
 export default function Categories() {
   return (
     <section className="py-20 bg-cream-100">
@@ -55,12 +207,16 @@ export default function Categories() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
-          <p className="section-tag mb-3">Collections</p>
-          <h2 className="section-title mb-4">Nos Univers</h2>
+          <p className="section-tag mb-3">Nos univers</p>
+          <h2 className="section-title mb-3">Explorez nos collections</h2>
+          <p className="text-luxury-light font-sans text-sm max-w-lg mx-auto leading-relaxed">
+            Robes, Jeans, Tennis &amp; Sacs — tout importé directement de Dubaï,
+            sélectionné pour son style et sa qualité.
+          </p>
           <motion.div
-            className="h-px bg-gold-500 mx-auto"
+            className="h-px bg-gold-500 mx-auto mt-6"
             initial={{ width: 0 }}
             whileInView={{ width: 48 }}
             viewport={{ once: true }}
@@ -68,72 +224,51 @@ export default function Categories() {
           />
         </motion.div>
 
-        {/* Grid */}
+        {/* Featured — 2 grandes cartes */}
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"
         >
-          {CATEGORIES.map((cat) => (
-            <motion.div key={cat.slug} variants={item}>
-              {/*
-                Hydration-safe pattern: the outer div handles the layout/animation,
-                a full-size invisible <a> sits on top via absolute positioning.
-                No <div> nested inside <a>.
-              */}
-              <motion.div
-                className="relative overflow-hidden h-64 md:h-80 lg:h-96 cursor-pointer group"
-                whileHover={{ scale: 1.01 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              >
-                {/* Image */}
-                <motion.div
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${cat.image})` }}
-                  whileHover={{ scale: 1.08 }}
-                  transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
-                />
-
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/12 to-transparent
-                                group-hover:from-black/80 transition-all duration-500" />
-
-                {/* Shine sweep */}
-                <div className="shine-overlay" />
-
-                {/* Gold border reveal */}
-                <div className="absolute inset-0 border border-transparent
-                                group-hover:border-gold-500/40 transition-colors duration-300
-                                pointer-events-none" />
-
-                {/* Text content */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 pointer-events-none">
-                  <p className="text-[10px] text-gold-400 tracking-[0.25em] uppercase font-sans mb-1">
-                    {cat.count}
-                  </p>
-                  <h3 className="font-serif text-xl text-white mb-3">{cat.name}</h3>
-                  <div className="flex items-center gap-2 text-[11px] text-white/85
-                                  tracking-widest uppercase font-sans
-                                  opacity-0 translate-y-2
-                                  group-hover:opacity-100 group-hover:translate-y-0
-                                  transition-all duration-300">
-                    Découvrir
-                    <ArrowRight className="w-3 h-3" />
-                  </div>
-                </div>
-
-                {/* Full-size accessible link — no block element inside <a> */}
-                <Link
-                  href={`/shop?category=${cat.slug}`}
-                  className="absolute inset-0 z-20"
-                  aria-label={`Découvrir ${cat.name}`}
-                />
-              </motion.div>
-            </motion.div>
+          {FEATURED.map((cat) => (
+            <FeaturedCard key={cat.slug} cat={cat} />
           ))}
         </motion.div>
+
+        {/* Rubriques — 5 cartes standards */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"
+        >
+          {CATEGORIES.map((cat) => (
+            <CategoryCard key={cat.slug} cat={cat} />
+          ))}
+        </motion.div>
+
+        {/* Lien boutique complète */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, delay: 0.3 }}
+          className="text-center mt-12"
+        >
+          <Link
+            href="/shop"
+            className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.3em]
+                       font-sans font-medium text-luxury-dark border-b border-gold-500
+                       pb-0.5 hover:text-gold-500 transition-colors duration-300"
+          >
+            Voir toute la boutique
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </motion.div>
+
       </div>
     </section>
   )
