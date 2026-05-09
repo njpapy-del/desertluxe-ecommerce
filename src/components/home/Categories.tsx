@@ -9,7 +9,7 @@ import { ArrowRight } from 'lucide-react'
 const FEATURED = [
   {
     name: 'Robes de Luxe',
-    slug: 'robes-luxe',
+    slug: 'robes',
     image: '/images/ROBESLUXETURQUE.png',
     count: '24 pièces',
     description: 'Élégance orientale · Coupes raffinées · Occasions prestige',
@@ -27,25 +27,18 @@ const FEATURED = [
 
 const CATEGORIES = [
   {
-    name: 'Robes de Soirée',
-    slug: 'robes-soiree',
-    image: '/images/ROBESOIREETURQUE.png',
-    count: '18 pièces',
-    description: 'Galas, mariages, soirées chics',
+    name: 'Bijoux & Or',
+    slug: 'bijoux',
+    image: 'https://images.unsplash.com/photo-1573408301185-9519eb7db41c?w=600&q=85&fit=crop&auto=format',
+    count: '5 pièces',
+    description: 'Or jaune · Or blanc · Plaqué 18 carats',
   },
   {
-    name: 'Robes d\'Été',
-    slug: 'robes-ete',
-    image: '/images/ROBEETETURQUE.png',
-    count: '22 pièces',
-    description: 'Légèreté, couleurs, style balnéaire',
-  },
-  {
-    name: 'Robes Courtes',
-    slug: 'robes-courtes',
-    image: '/images/ROBECOURTEETE.png',
-    count: '16 pièces',
-    description: 'Casual chic, quotidien élégant',
+    name: 'Chaussures',
+    slug: 'chaussures',
+    image: '/images/chaussure1.png',
+    count: '12 pièces',
+    description: 'Escarpins, sandales & bottines premium',
   },
   {
     name: 'Jeans',
@@ -60,6 +53,13 @@ const CATEGORIES = [
     image: '/images/TENNISTURQUE.png',
     count: '20 pièces',
     description: 'Style sportswear luxe, confort absolu',
+  },
+  {
+    name: 'Accessoires',
+    slug: 'accessoires',
+    image: 'https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?w=600&q=85&fit=crop&auto=format',
+    count: '8 pièces',
+    description: 'Ceintures, foulards & lunettes de luxe',
   },
 ]
 

@@ -48,6 +48,35 @@ const BAGS = {
   fashionLife:   U('1515886657613-9f3515b0c78f'),
 }
 
+// ── Bijoux & Or ──────────────────────────────────────────────────────────────
+// Or jaune (yellow gold) + Or blanc (white gold / plaqué argent)
+const BIJOUX = {
+  // Colliers / chaînes
+  collierJauneMain:   U('1573408301185-9519eb7db41c'),  // gold chain necklace
+  collierJauneDetail: U('1611591437281-460bfbe1220a'),  // gold chain closeup
+  collierBlanc:       U('1515377905703-c4788e51af15'),  // white gold necklace
+
+  // Bracelets
+  braceletJauneMain:   U('1610397648930-477b8c7f0943'),  // stacked gold bracelets
+  braceletJauneDetail: U('1602751584552-8ba73aad10e1'),  // delicate gold bracelet
+  braceletBlanc:       U('1583845773-9e42e5e22d9f'),     // white gold bracelet
+
+  // Boucles d'oreilles
+  bouclesJauneMain:   U('1631982690223-8aa4e09da8a3'),  // gold hoop earrings
+  bouclesJauneDetail: U('1576022162068-73b11b0f5bfc'),  // drop earrings
+  bouclesBlanc:       U('1548036328-c9fa89d128fa'),     // silver earrings
+
+  // Parure / sets
+  parureMain:   U('1569397288884-4d43d6738fbd'),  // jewelry flatlay
+  parureDetail: U('1606800052052-a08af7148866'),  // gold jewelry collection
+  parureLife:   U('1573408301185-9519eb7db41c'),
+
+  // Chaînes premium
+  chaineJauneMain:   U('1611591437281-460bfbe1220a'),  // gold chain
+  chaineJauneDetail: U('1573408301185-9519eb7db41c'),
+  chaineBlanc:       U('1515377905703-c4788e51af15'),  // white gold chain
+}
+
 // ── Accessories ───────────────────────────────────────────────────────────────
 const ACC = {
   bracelet:   U('1611085583191-a3b181a88401'),
@@ -113,7 +142,7 @@ export const MOCK_CATEGORIES = [
     name:        'Bijoux & Or',
     slug:        'bijoux',
     description: 'Colliers, bracelets et parures en or — bijouterie fine de Dubaï',
-    image:       '/images/or1256.png',
+    image:       BIJOUX.collierJauneMain,
     position:    6,
   },
   {
@@ -956,7 +985,7 @@ export const MOCK_PRODUCTS = [
     description:  'Collier chaîne en or jaune 18 carats plaqué, maille gourmette fine. Fermoir mousqueton doré, longueur 45 cm. Inspiration joaillerie de Dubaï — élégance minimaliste qui sublime tous les décolletés. Livré en pochette velours MA LUXURY.',
     price:        35,
     comparePrice: 48,
-    images:       ['/images/or1256.png', '/images/OR12.png', '/images/or145.png'],
+    images:       [BIJOUX.collierJauneMain, BIJOUX.collierJauneDetail, BIJOUX.collierBlanc],
     categoryId:   'cat-bijoux',
     category:     { id: 'cat-bijoux', name: 'Bijoux & Or', slug: 'bijoux', position: 6 },
     stock:        30,
@@ -977,7 +1006,7 @@ export const MOCK_PRODUCTS = [
     description:  'Bracelet chaîne ultra-fin en or jaune plaqué 18 carats. Fermoir à ressort, longueur ajustable 16-18 cm. Se superpose avec d\'autres bracelets pour le look stacking tendance. Finition brillant miroir. Idéal comme cadeau pour une occasion spéciale.',
     price:        22,
     comparePrice: 32,
-    images:       ['/images/or2235.png', '/images/or235698.png', '/images/OR44.png'],
+    images:       [BIJOUX.braceletJauneMain, BIJOUX.braceletJauneDetail, BIJOUX.braceletBlanc],
     categoryId:   'cat-bijoux',
     category:     { id: 'cat-bijoux', name: 'Bijoux & Or', slug: 'bijoux', position: 6 },
     stock:        35,
@@ -998,7 +1027,7 @@ export const MOCK_PRODUCTS = [
     description:  'Boucles d\'oreilles créoles en or jaune plaqué 18 carats, diamètre 3 cm. Design classique et intemporel qui s\'adapte à toutes les tenues — casual comme habillé. Fermoir à charnière sécurisé. Peau friendly, sans nickel. Livrées en écrin.',
     price:        18,
     comparePrice: 28,
-    images:       ['/images/or456.png', '/images/or45.png', '/images/or56487.png'],
+    images:       [BIJOUX.bouclesJauneMain, BIJOUX.bouclesJauneDetail, BIJOUX.bouclesBlanc],
     categoryId:   'cat-bijoux',
     category:     { id: 'cat-bijoux', name: 'Bijoux & Or', slug: 'bijoux', position: 6 },
     stock:        28,
@@ -1019,7 +1048,7 @@ export const MOCK_PRODUCTS = [
     description:  'Parure trois pièces en or jaune plaqué 18 carats : collier + bracelet + boucles d\'oreilles. Design harmonisé, motifs arabisants gravés. Coffret cadeau inclus, parfait pour les mariages, fiançailles et anniversaires. La parure de prestige signée MA LUXURY.',
     price:        48,
     comparePrice: 0,
-    images:       ['/images/or2566987.png', '/images/or25689.png', '/images/or456987.png'],
+    images:       [BIJOUX.parureMain, BIJOUX.parureDetail, BIJOUX.parureLife],
     categoryId:   'cat-bijoux',
     category:     { id: 'cat-bijoux', name: 'Bijoux & Or', slug: 'bijoux', position: 6 },
     stock:        15,
@@ -1040,7 +1069,7 @@ export const MOCK_PRODUCTS = [
     description:  'Chaîne or premium maille forçat, plaquée or jaune 18 carats. Épaisseur 3 mm, longueur 50 cm, fermoir à ressort. S\'associe avec un pendentif ou se porte seule pour un look minimaliste chic. Résistante à l\'humidité, sans ternissement rapide.',
     price:        28,
     comparePrice: 40,
-    images:       ['/images/or2365487.png', '/images/or45698755.png', '/images/or1256.png'],
+    images:       [BIJOUX.chaineJauneMain, BIJOUX.chaineJauneDetail, BIJOUX.chaineBlanc],
     categoryId:   'cat-bijoux',
     category:     { id: 'cat-bijoux', name: 'Bijoux & Or', slug: 'bijoux', position: 6 },
     stock:        22,
