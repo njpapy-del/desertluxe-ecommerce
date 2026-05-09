@@ -8,7 +8,7 @@ const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'llama3.2:3b'
 
 // Groq — Llama 3 cloud, gratuit, ~600 tok/s (remplace Groq)
 const GROQ_API_KEY = process.env.GROQ_API_KEY
-const GROQ_MODEL   = process.env.GROQ_MODEL || 'llama-3.1-8b-instant'
+const GROQ_MODEL   = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile'
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
 
 // ── Prompt système ────────────────────────────────────────────────────────────
@@ -168,6 +168,15 @@ function ruleBasedResponse(message: string): string {
     return `Notre pièce la plus accessible : ${cheapest.name} à seulement ${cheapest.price}€. Excellent rapport qualité-prix !`
   }
 
+  if (/réduction|reduction|promo|remise|discount|code|fidélité|fidelite|groupée|groupee|lot|pack/.test(q))
+    return `Nous ne proposons pas de promotions ni de réductions groupées pour le moment. Tous nos prix sont déjà optimisés pour le marché tunisien. Pour toute question, contactez-nous sur WhatsApp. 💬`
+
+  if (/livr.*hors|livr.*france|livr.*algérie|livr.*algerie|livr.*maroc|livr.*europe|livr.*international|international.*livr|hors.*tunisie|expédition.*internationale/.test(q))
+    return `Nous livrons uniquement en Tunisie, partout sur le territoire, sous 24 à 48h. Nous n'assurons pas de livraison internationale pour le moment. 📦`
+
+  if (/bientôt|prochainement|nouveauté.*arrive|futur/.test(q))
+    return `Je n'ai pas d'information sur les prochaines nouveautés. Suivez-nous ou contactez-nous sur WhatsApp pour rester informé. 💬`
+
   const picks = MOCK_PRODUCTS.filter(p => p.featured)
   const pick  = picks[Math.floor(Math.random() * picks.length)]
   return `Je vous suggère notre **${pick.name}** à ${pick.price}€, très apprécié de nos clientes. Puis-je vous aider à trouver quelque chose de précis ?`
@@ -190,27 +199,34 @@ export async function POST(req: NextRequest) {
     let reply = ''
     let source = 'rules'
 
-    if (IS_PROD) {
-      // PRODUCTION : Groq (Qwen 2.5 cloud) → OpenAI → Règles
-      try   { reply = await callGroq(messages); source = 'huggingface' }
+    // Règles prioritaires AVANT le LLM — évite toute hallucination sur les sujets clés
+    const ruleReply = ruleBasedResponse(message)
+    const isDefinitiveRule = /bonjour|salut|hello|bonsoir|salam|\bhi\b|livraison|délai|d[eé]lai|expédition|recevoir|retour|remboursement|[eé]changer|paiement|payer|r[eè]glement|whatsapp|contact|appel|r[ée]duction|promo|remise|discount|fid[eé]lit[eé]|groupée|groupee|livr.{1,10}hors|hors.{1,10}tunisie|international|bient[oô]t|prochainement/.test(message.toLowerCase())
+
+    if (isDefinitiveRule) {
+      reply  = ruleReply
+      source = 'rules'
+    } else if (IS_PROD) {
+      // PRODUCTION : Groq (Llama 3.3-70B cloud) → OpenAI → Règles
+      try   { reply = await callGroq(messages); source = 'groq' }
       catch (e) {
         console.warn('Groq failed:', e instanceof Error ? e.message : e)
         try   { reply = await callOpenAI(messages); source = 'openai' }
-        catch { reply = ruleBasedResponse(message) }
+        catch { reply = ruleReply }
       }
     } else {
       // DEV LOCAL : Ollama → Groq → OpenAI → Règles
       try   { reply = await callOllama(messages); source = 'ollama' }
       catch {
-        try   { reply = await callGroq(messages); source = 'huggingface' }
+        try   { reply = await callGroq(messages); source = 'groq' }
         catch {
           try   { reply = await callOpenAI(messages); source = 'openai' }
-          catch { reply = ruleBasedResponse(message) }
+          catch { reply = ruleReply }
         }
       }
     }
 
-    if (!reply) reply = ruleBasedResponse(message)
+    if (!reply) reply = ruleReply
 
     const mentioned = MOCK_PRODUCTS.filter(
       p => reply.toLowerCase().includes(p.name.toLowerCase().split(' ')[0])
