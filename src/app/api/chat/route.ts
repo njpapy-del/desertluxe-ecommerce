@@ -4,12 +4,12 @@ import { MOCK_PRODUCTS } from '@/lib/mockData'
 // ── Environnement ─────────────────────────────────────────────────────────────
 const IS_PROD      = process.env.NODE_ENV === 'production'
 const OLLAMA_URL   = process.env.OLLAMA_URL   || 'http://localhost:11434'
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'qwen2.5:7b'
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'llama3.2:3b'
 
-// HuggingFace — Qwen 2.5 hébergé cloud (fonctionne en prod sans Ollama)
-const HF_TOKEN     = process.env.HF_TOKEN
-const HF_MODEL     = process.env.HF_MODEL || 'Qwen/Qwen2.5-7B-Instruct'
-const HF_API_URL   = `https://api-inference.huggingface.co/v1/chat/completions`
+// Groq — Llama 3 cloud, gratuit, ~600 tok/s (remplace Groq)
+const GROQ_API_KEY = process.env.GROQ_API_KEY
+const GROQ_MODEL   = process.env.GROQ_MODEL || 'llama-3.1-8b-instant'
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
 
 // ── Prompt système ────────────────────────────────────────────────────────────
 function buildProductContext(): string {
@@ -44,35 +44,35 @@ interface Message {
   content: string
 }
 
-// ── 1. HuggingFace Qwen 2.5 (cloud, prod-ready) ───────────────────────────────
-async function callHuggingFace(messages: Message[]): Promise<string> {
-  if (!HF_TOKEN) throw new Error('HF_TOKEN non configuré')
+// ── 1. Groq — Llama 3.1 cloud, gratuit, ~600 tok/s ───────────────────────────
+async function callGroq(messages: Message[]): Promise<string> {
+  if (!GROQ_API_KEY) throw new Error('GROQ_API_KEY non configuré')
 
-  const res = await fetch(HF_API_URL, {
+  const res = await fetch(GROQ_API_URL, {
     method:  'POST',
     headers: {
       'Content-Type':  'application/json',
-      'Authorization': `Bearer ${HF_TOKEN}`,
+      'Authorization': `Bearer ${GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model:       HF_MODEL,
+      model:       GROQ_MODEL,
       messages,
       max_tokens:  512,
       temperature: 0.7,
       top_p:       0.9,
       stream:      false,
     }),
-    signal: AbortSignal.timeout(25_000), // 25s max
+    signal: AbortSignal.timeout(20_000),
   })
 
   if (!res.ok) {
     const err = await res.text()
-    throw new Error(`HuggingFace ${res.status}: ${err}`)
+    throw new Error(`Groq ${res.status}: ${err}`)
   }
 
   const data = await res.json()
   const content = data.choices?.[0]?.message?.content
-  if (!content) throw new Error('HuggingFace: réponse vide')
+  if (!content) throw new Error('Groq: réponse vide')
   return content
 }
 
@@ -185,18 +185,18 @@ export async function POST(req: NextRequest) {
     let source = 'rules'
 
     if (IS_PROD) {
-      // PRODUCTION : HuggingFace (Qwen 2.5 cloud) → OpenAI → Règles
-      try   { reply = await callHuggingFace(messages); source = 'huggingface' }
+      // PRODUCTION : Groq (Qwen 2.5 cloud) → OpenAI → Règles
+      try   { reply = await callGroq(messages); source = 'huggingface' }
       catch (e) {
-        console.warn('HuggingFace failed:', e instanceof Error ? e.message : e)
+        console.warn('Groq failed:', e instanceof Error ? e.message : e)
         try   { reply = await callOpenAI(messages); source = 'openai' }
         catch { reply = ruleBasedResponse(message) }
       }
     } else {
-      // DEV LOCAL : Ollama → HuggingFace → OpenAI → Règles
+      // DEV LOCAL : Ollama → Groq → OpenAI → Règles
       try   { reply = await callOllama(messages); source = 'ollama' }
       catch {
-        try   { reply = await callHuggingFace(messages); source = 'huggingface' }
+        try   { reply = await callGroq(messages); source = 'huggingface' }
         catch {
           try   { reply = await callOpenAI(messages); source = 'openai' }
           catch { reply = ruleBasedResponse(message) }
