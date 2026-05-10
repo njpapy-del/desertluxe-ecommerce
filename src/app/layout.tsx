@@ -7,6 +7,7 @@ import CartDrawer from '@/components/cart/CartDrawer'
 import ChatWidget from '@/components/chat/ChatWidget'
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat'
 import InstagramFloat from '@/components/ui/InstagramFloat'
+import FacebookFloat from '@/components/ui/FacebookFloat'
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import './globals.css'
@@ -139,6 +140,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <CartDrawer />
         <ChatWidget />
+        <FacebookFloat />
         <InstagramFloat />
         <WhatsAppFloat />
 
