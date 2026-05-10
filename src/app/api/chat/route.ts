@@ -28,7 +28,7 @@ FAITS STRICTS sur MA LUXURY — tu ne peux affirmer QUE ces faits :
 - Livraison UNIQUEMENT en Tunisie, délai 24-48h. Zéro livraison internationale.
 - Retours gratuits sous 30 jours
 - Paiement sécurisé en ligne ou à la livraison
-- Contact WhatsApp : ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+21600000000'}
+- Contact WhatsApp : ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904'}
 
 INTERDIT ABSOLU — ne jamais mentionner ni inventer :
 - Des réductions, promotions, codes promo, prix groupés → ils n'existent PAS
@@ -161,7 +161,7 @@ function ruleBasedResponse(message: string): string {
   }
 
   if (/whatsapp|contact|appel/.test(q))
-    return `Contactez-nous sur WhatsApp : ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+21600000000'}. Réponse en moins de 24h. 💬`
+    return `Contactez-nous sur WhatsApp : ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904'}. Réponse en moins de 24h. 💬`
 
   if (/prix|budget|moins cher|pas cher/.test(q)) {
     const cheapest = [...MOCK_PRODUCTS].sort((a, b) => a.price - b.price)[0]

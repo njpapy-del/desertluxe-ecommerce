@@ -29,7 +29,7 @@ const SocialIcons = {
   ),
 }
 
-const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+33600000000'
+const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904'
 
 export default function Footer() {
   return (
@@ -181,7 +181,7 @@ export default function Footer() {
 
             {/* WhatsApp CTA */}
             <a
-              href={`https://wa.me/${WHATSAPP.replace(/\D/g, '')}?text=Bonjour MA LUXURY, j'ai une question.`}
+              href={`https://wa.me/${WHATSAPP.replace(/\D/g, '')}?text=Bonjour%2C%20je%20veux%20commander%20un%20sac%20sur%20MA%20LUXURY%20%F0%9F%91%9C`}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 flex items-center gap-2 bg-[#25D366] text-white px-4 py-2.5

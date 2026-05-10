@@ -35,7 +35,7 @@ export default function ProductClient({ id }: { id: string }) {
   const whatsappMsg = encodeURIComponent(
     `Bonjour ! Je suis intéressé(e) par : ${product.name} — ${product.price}€\nhttps://desertluxe-frontend.onrender.com/product/${product.slug}`
   )
-  const waNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '21600000000').replace(/\D/g, '')
+  const waNumber = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904').replace(/\D/g, '')
 
   return (
     <div className="min-h-screen bg-cream-100">

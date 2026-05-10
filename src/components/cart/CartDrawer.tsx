@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { X, ShoppingBag, Minus, Plus, Trash2, ArrowRight, MessageCircle } from 'lucide-react'
 import { useCartStore } from '@/store/cartStore'
 
-const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, '') || ''
+const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904').replace(/\D/g, '')
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, total } = useCartStore()
