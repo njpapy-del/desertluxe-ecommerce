@@ -29,6 +29,7 @@ const cormorant = Cormorant_Garamond({
   weight:   ['300', '400', '500'],
   variable: '--font-cormorant',
   display:  'swap',
+  preload:  false, // évite le warning "preloaded but not used" sur les pages sans ce font
 })
 
 const BASE_URL = 'https://desertluxe-frontend.onrender.com'
