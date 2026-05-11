@@ -2,6 +2,10 @@ import Hero from '@/components/home/Hero'
 import Categories from '@/components/home/Categories'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
 import Newsletter from '@/components/home/Newsletter'
+import PromoBanner from '@/components/home/PromoBanner'
+import CategoryCarousel from '@/components/home/CategoryCarousel'
+import WeeklyPromos from '@/components/home/WeeklyPromos'
+import FlashSaleCountdown from '@/components/home/FlashSaleCountdown'
 import { MOCK_PRODUCTS } from '@/lib/mockData'
 
 // In production: fetch from DB via Prisma
@@ -24,9 +28,21 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* ── Animated promo banner ──────────────────────── */}
+      <PromoBanner />
+
       <Hero />
       <Categories />
       <FeaturedProducts products={featured as any} />
+
+      {/* ── Category carousel ──────────────────────────── */}
+      <CategoryCarousel />
+
+      {/* ── Weekly dynamic promos ──────────────────────── */}
+      <WeeklyPromos />
+
+      {/* ── Flash sale countdown ───────────────────────── */}
+      <FlashSaleCountdown />
 
       {/* ── Trust section ──────────────────────────────── */}
       <section className="py-16 bg-cream-200">
