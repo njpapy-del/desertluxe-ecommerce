@@ -12,6 +12,7 @@ import {
 } from 'framer-motion'
 
 import { ArrowRight, Sparkles } from 'lucide-react'
+import Fireworks from '@/components/ui/Fireworks'
 
 // ─── Word-split animation ─────────────────────────────────────────────────────
 const TITLE_LINES = ['Luxury Fashion', 'Inspired by', 'Dubai']
@@ -300,6 +301,9 @@ export default function Hero() {
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         />
       </motion.div>
+
+      {/* ── Fireworks overlay ────────────────────────────── */}
+      <Fireworks zIndex={5} intervalMs={3200} maxRockets={3} opacity={0.82} />
 
       {/* ── Bottom fade ──────────────────────────────────── */}
       <div className="absolute bottom-0 left-0 right-0 h-24

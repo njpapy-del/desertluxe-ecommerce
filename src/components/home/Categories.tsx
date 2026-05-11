@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
+import Fireworks from '@/components/ui/Fireworks'
 
 /* ─── Données catégories ────────────────────────────────────────────── */
 const FEATURED = [
@@ -198,7 +199,10 @@ function CategoryCard({ cat }: { cat: typeof CATEGORIES[0] }) {
 /* ─── Section principale ────────────────────────────────────────────── */
 export default function Categories() {
   return (
-    <section className="py-20 bg-cream-100">
+    <section className="py-20 bg-cream-100 relative overflow-hidden">
+      {/* ── Fireworks — "Explorez nos collections" ─────── */}
+      <Fireworks zIndex={5} intervalMs={4000} maxRockets={2} opacity={0.65} />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
