@@ -19,7 +19,7 @@ const DAYS: DayConfig[] = [
   // 1 Monday
   { icon: '👜', title: 'Lundi Sac Premium', subtitle: 'Commencez la semaine avec nos sacs signature importés de Dubaï', category: 'sacs-a-main', particles: false },
   // 2 Tuesday
-  { icon: '✨', title: 'Mardi Nouveautés', subtitle: 'Nouvelles pièces sélectionnées avec soin pour vous cette semaine', category: 'nouveautes', particles: false },
+  { icon: '🧴', title: 'Mardi Beauté & Soins', subtitle: 'Huiles capillaires précieuses — argan, soins naturels importés de Dubaï', category: 'huile-cheveux', particles: true },
   // 3 Wednesday
   { icon: '💎', title: 'Mercredi Bijoux', subtitle: "Éclat de l'or — bijoux plaqués 18 carats, or jaune et or blanc", category: 'bijoux', particles: true },
   // 4 Thursday
