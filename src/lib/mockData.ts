@@ -102,7 +102,7 @@ export const MOCK_CATEGORIES = [
     name:        'Sacs à Main',
     slug:        'sacs-a-main',
     description: 'Collection exclusive de sacs à main de luxe importés de Dubaï',
-    image:       '/images/SACTURQUE.png',
+    image:       '/images/SACCPRO.png',
     position:    1,
   },
   {

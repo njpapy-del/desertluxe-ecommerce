@@ -10,7 +10,7 @@ const SLIDES = [
   {
     name: 'Sacs de Luxe',
     slug: 'sacs-a-main',
-    image: '/images/SACTURQUE.png',
+    image: '/images/SACCPRO.png',
     tag: 'Collection Dubai',
     accent: 'Maroquinerie premium · Cuirs grainés importés',
     cta: 'Découvrir les sacs',

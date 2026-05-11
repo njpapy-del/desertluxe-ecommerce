@@ -19,7 +19,7 @@ const FEATURED = [
   {
     name: 'Sacs de Luxe',
     slug: 'sacs-a-main',
-    image: '/images/SACTURQUE.png',
+    image: '/images/SACCPRO.png',
     count: '48 pièces',
     description: 'Maroquinerie premium · Cuirs grainés · Importés de Dubaï',
     badge: 'Collection Dubaï',
