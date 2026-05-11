@@ -6,6 +6,7 @@ import PromoBanner from '@/components/home/PromoBanner'
 import CategoryCarousel from '@/components/home/CategoryCarousel'
 import WeeklyPromos from '@/components/home/WeeklyPromos'
 import FlashSaleCountdown from '@/components/home/FlashSaleCountdown'
+import HairOilVitamins from '@/components/home/HairOilVitamins'
 import { MOCK_PRODUCTS } from '@/lib/mockData'
 
 // In production: fetch from DB via Prisma
@@ -37,6 +38,9 @@ export default async function HomePage() {
 
       {/* ── Category carousel ──────────────────────────── */}
       <CategoryCarousel />
+
+      {/* ── Hair oil vitamins ──────────────────────────── */}
+      <HairOilVitamins />
 
       {/* ── Weekly dynamic promos ──────────────────────── */}
       <WeeklyPromos />
