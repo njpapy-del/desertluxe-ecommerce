@@ -216,7 +216,7 @@ export default function Categories() {
           <p className="section-tag mb-3">Nos univers</p>
           <h2 className="section-title mb-3">Explorez nos collections</h2>
           <p className="text-luxury-light font-sans text-sm max-w-lg mx-auto leading-relaxed">
-            Robes, Jeans, Tennis &amp; Sacs — tout importé directement de Dubaï,
+            Robes, Bijoux, Chaussures &amp; Sacs — tout importé directement de Dubaï,
             sélectionné pour son style et sa qualité.
           </p>
           <motion.div

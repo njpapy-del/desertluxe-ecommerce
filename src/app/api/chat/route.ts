@@ -21,7 +21,7 @@ function buildProductContext(): string {
 function buildSystemPrompt(): string {
   return `Tu es Leila, la conseillère IA de MA LUXURY — boutique de mode luxe importée de Dubaï et Turquie, livraison en Tunisie.
 
-Personnalité : élégante, chaleureuse, professionnelle. Experte en sacs, robes, jeans, chaussures et bijoux.
+Personnalité : élégante, chaleureuse, professionnelle. Experte en sacs, robes, chaussures, bijoux et huiles capillaires.
 Langue : réponds toujours en français. Sois précise et concise (2-4 phrases max).
 
 FAITS STRICTS sur MA LUXURY — tu ne peux affirmer QUE ces faits :
@@ -145,9 +145,10 @@ function ruleBasedResponse(message: string): string {
     return `Robes en vedette : ${items.map(p => `${p.name} à ${p.price}€`).join(' et ')}. Parfaites pour toutes les occasions.`
   }
 
-  if (/jean|denim/.test(q)) {
-    const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'jeans').slice(0, 2)
-    return `Collection jeans : ${items.map(p => `${p.name} à ${p.price}€`).join(' et ')}. Denim premium importé de Turquie.`
+  if (/huile|cheveux|capillaire|argan|soin/.test(q)) {
+    const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'huile-cheveux').slice(0, 2)
+    const list = items.length ? items.map(p => `${p.name} à ${p.price}€`).join(' et ') : 'notre sélection premium'
+    return `Nos huiles capillaires : ${list}. Formules enrichies en vitamines A, B5, B7, C, D et E — argan, jojoba, ricin. Soins naturels importés de Dubaï.`
   }
 
   if (/chaussure|sandale|escarpin|bottine/.test(q)) {
