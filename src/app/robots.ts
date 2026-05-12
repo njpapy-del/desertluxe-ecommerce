@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://desertluxe-ecommerce.vercel.app'
+// Domaine canonique — hardcodé pour robots.txt (ne doit jamais dépendre d'env mal configuré)
+const CANONICAL = 'https://desertluxe-ecommerce.vercel.app'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -19,6 +20,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow:  '/',
       },
     ],
-    sitemap: `${BASE_URL}/sitemap.xml`,
+    sitemap: `${CANONICAL}/sitemap.xml`,
   }
 }
