@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ShoppingBag, Heart, Star, Eye } from 'lucide-react'
 import { useCartStore } from '@/store/cartStore'
+import { fmtEur, fmtTnd } from '@/lib/priceUtils'
 import type { Product } from '@/types'
 
 interface ProductCardProps {
@@ -234,15 +235,27 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
 
-        <div className="flex items-center gap-2">
-          <span className="font-sans font-semibold text-luxury-dark text-[15px]">
-            {product.price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
-          </span>
-          {product.comparePrice && (
-            <span className="font-sans text-xs text-luxury-light line-through">
-              {product.comparePrice.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+        <div className="flex flex-col gap-0.5">
+          <div className="flex items-center gap-2">
+            <span className="font-sans font-semibold text-luxury-dark text-[15px]">
+              {fmtEur(product.price)}
             </span>
-          )}
+            {product.comparePrice && (
+              <span className="font-sans text-xs text-luxury-light line-through">
+                {fmtEur(product.comparePrice)}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="font-sans text-[11px] text-gold-600 font-medium">
+              {fmtTnd(product.price)}
+            </span>
+            {product.comparePrice && (
+              <span className="font-sans text-[10px] text-luxury-light line-through">
+                {fmtTnd(product.comparePrice)}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
