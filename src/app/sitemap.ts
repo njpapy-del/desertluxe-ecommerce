@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { MOCK_PRODUCTS } from '@/lib/mockData'
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://desertluxe-frontend.onrender.com'
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://desertluxe-ecommerce.vercel.app'
 
 export const dynamic = 'force-dynamic'
 

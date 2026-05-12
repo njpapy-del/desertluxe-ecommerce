@@ -32,7 +32,7 @@ const cormorant = Cormorant_Garamond({
   preload:  false, // évite le warning "preloaded but not used" sur les pages sans ce font
 })
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://desertluxe-frontend.onrender.com'
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://desertluxe-ecommerce.vercel.app'
 
 export const metadata: Metadata = {
   // ── Base URL — résout tous les chemins relatifs (og images, canonical…) ────
