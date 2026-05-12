@@ -62,6 +62,13 @@ const CATEGORIES = [
     count: '6 pièces',
     description: 'Soins capillaires · Argan · Huiles précieuses',
   },
+  {
+    name: 'Parfums Arabes',
+    slug: 'parfums',
+    image: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=600&q=85&fit=crop&auto=format',
+    count: '6 pièces',
+    description: 'Oud · Rose · Ambre · Musc · Collection Ibraq',
+  },
 ]
 
 /* ─── Animations ────────────────────────────────────────────────────── */

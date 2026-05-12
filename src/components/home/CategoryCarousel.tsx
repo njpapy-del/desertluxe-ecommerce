@@ -55,6 +55,14 @@ const SLIDES = [
     accent: 'Huiles précieuses · Argan · Soin naturel Dubai',
     cta: 'Découvrir les soins',
   },
+  {
+    name: 'Parfums Arabes',
+    slug: 'parfums',
+    image: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=1400&q=80&fit=crop&auto=format',
+    tag: 'Collection Ibraq',
+    accent: 'Oud · Rose de Taïf · Ambre · Musc — Péninsule Arabique',
+    cta: 'Sentir la collection',
+  },
 ]
 
 const AUTOPLAY_MS = 4500

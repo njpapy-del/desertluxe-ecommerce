@@ -21,7 +21,7 @@ function buildProductContext(): string {
 function buildSystemPrompt(): string {
   return `Tu es Leila, la conseillère IA de MA LUXURY — boutique de mode luxe importée de Dubaï et Turquie, livraison en Tunisie.
 
-Personnalité : élégante, chaleureuse, professionnelle. Experte en sacs, robes, chaussures, bijoux et huiles capillaires.
+Personnalité : élégante, chaleureuse, professionnelle. Experte en sacs, robes, chaussures, bijoux, huiles capillaires et parfums arabes.
 Langue : réponds toujours en français. Sois précise et concise (2-4 phrases max).
 
 FAITS STRICTS sur MA LUXURY — tu ne peux affirmer QUE ces faits :
@@ -149,6 +149,12 @@ function ruleBasedResponse(message: string): string {
     const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'huile-cheveux').slice(0, 2)
     const list = items.length ? items.map(p => `${p.name} à ${p.price}€`).join(' et ') : 'notre sélection premium'
     return `Nos huiles capillaires : ${list}. Formules enrichies en vitamines A, B5, B7, C, D et E — argan, jojoba, ricin. Soins naturels importés de Dubaï.`
+  }
+
+  if (/parfum|oud|rose|ambre|musc|santal|jasmin|fragrance|ibraq|senteur/.test(q)) {
+    const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'parfums').slice(0, 2)
+    const list = items.length ? items.map(p => `${p.name} à ${p.price}€`).join(' et ') : 'notre sélection Ibraq'
+    return `Nos parfums arabes 75 ml : ${list}. Collection Ibraq Perfumes — oud, rose de Taïf, ambre, musc. Sillage 10-12h, flacons de luxe. Expédié depuis Arabie Saoudite.`
   }
 
   if (/chaussure|sandale|escarpin|bottine/.test(q)) {
