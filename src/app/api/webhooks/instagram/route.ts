@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse }    from 'next/server'
+import { handleIncomingMessage }        from '@/lib/chatbot'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,11 +21,20 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  // Répondre 200 immédiatement — Meta abandonne si réponse > 20 s
+  const responsePromise = NextResponse.json({ received: true }, { status: 200 })
+
   try {
     const body = await req.json()
     console.log('[webhook/instagram] POST', JSON.stringify(body))
+
+    // Traitement asynchrone — ne bloque pas la réponse Meta
+    handleIncomingMessage(body).catch(err =>
+      console.error('[webhook/instagram] chatbot error', err),
+    )
   } catch {
     // payload non-JSON ignoré
   }
-  return NextResponse.json({ received: true }, { status: 200 })
+
+  return responsePromise
 }
