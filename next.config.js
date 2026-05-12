@@ -9,15 +9,20 @@ const nextConfig = {
       { protocol: 'https', hostname: 'res.cloudinary.com' },
       { protocol: 'https', hostname: 'cdn.desertluxe.com' },
       { protocol: 'https', hostname: 'uploadthing.com' },
+      // Supabase Storage
+      { protocol: 'https', hostname: '*.supabase.co' },
+      { protocol: 'https', hostname: '*.supabase.in' },
     ],
   },
 
   experimental: {
     serverActions: {
-      // *.onrender.com n'est pas supporté — on liste le domaine exact
       allowedOrigins: [
         'localhost:3000',
         'desertluxe-frontend.onrender.com',
+        // Vercel — preview deployments + production
+        '*.vercel.app',
+        'ma-luxury.vercel.app',
       ],
     },
   },

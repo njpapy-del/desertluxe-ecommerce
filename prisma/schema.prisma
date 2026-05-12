@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")   // pooler Supabase (pgbouncer) — runtime
+  directUrl = env("DIRECT_URL")    // connexion directe — migrations Prisma
 }
 
 model User {
