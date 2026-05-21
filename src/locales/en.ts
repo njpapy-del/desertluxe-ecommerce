@@ -1,0 +1,82 @@
+import type { Translations } from './types'
+
+const en: Translations = {
+  nav: {
+    home:        'Home',
+    shop:        'Shop',
+    newArrivals: 'New Arrivals',
+    bags:        'Bags',
+    accessories: 'Accessories',
+    about:       'About',
+    adminSpace:  'Admin',
+    perfumes:    'Perfumes',
+  },
+  announcement: 'Free delivery over 200 AED · 30-day returns · Secure payment',
+  search: {
+    placeholder: 'Search bags, accessories, collections…',
+  },
+  product: {
+    addToCart:    'Add to Cart',
+    outOfStock:   'Out of Stock',
+    limitedStock: 'Limited Stock',
+    newBadge:     'New',
+    viewProduct:  'View Product',
+    wishlist:     'Wishlist',
+    added:        'Added ✓',
+    updated:      'Quantity updated',
+  },
+  cart: {
+    title:     'Your Cart',
+    empty:     'Your cart is empty',
+    emptyHint: 'Discover our luxury collections',
+    browse:    'Browse Collections',
+    checkout:  'Checkout',
+    total:     'Total',
+    remove:    'Remove',
+    items:     'items',
+  },
+  categories: {
+    title:    'Explore Our Collections',
+    subtitle: 'Robes, Jewellery, Shoes & Bags',
+    explore:  'Explore',
+    pieces:   'pieces',
+  },
+  home: {
+    heroTitle:        'Luxury Fashion\nInspired by Dubai',
+    heroSubtitle:     'Premium handbags, exclusive accessories and rare fragrances from the Arabian Peninsula',
+    heroCta:          'Shop Now',
+    heroCtaSecondary: 'Discover the Collection',
+    featuredTitle:    'Featured Pieces',
+    featuredSubtitle: 'Handpicked luxury for the discerning',
+    newCollection:    'New Collection',
+    bestSellers:      'Best Sellers',
+    weeklyPromo:      "This Week's Specials",
+    flashSale:        'Flash Sale',
+    viewAll:          'View All',
+  },
+  footer: {
+    tagline:            'Luxury fashion inspired by the elegance of Dubai',
+    newsletterTitle:    'Join the MY LUXURY Circle',
+    newsletterSubtitle: 'Exclusive offers, new arrivals & style inspiration',
+    placeholder:        'Your email address',
+    subscribe:          'Subscribe',
+    quickLinks:         'Quick Links',
+    legal:              'Legal',
+    rights:             '© 2026 MY LUXURY. All rights reserved.',
+    whatsappCta:        'Chat on WhatsApp',
+    privacy:            'Privacy Policy',
+    terms:              'Terms of Service',
+  },
+  currency: {
+    label: 'Currency',
+    aed:   'AED — Dirham',
+    tnd:   'TND — Dinar',
+  },
+  language: {
+    label:   'Language',
+    english: 'English',
+    arabic:  'العربية',
+  },
+}
+
+export default en

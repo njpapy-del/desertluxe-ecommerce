@@ -1,7 +1,7 @@
 /**
  * Œil de Ra — symbole égyptien rare (𓂀)
  * Hieroglyphe D004 · Unicode U+13080
- * Utilisé comme signature royale de MA LUXURY
+ * Utilisé comme signature royale de MY LUXURY
  */
 export default function EyeOfRa({ className = '' }: { className?: string }) {
   return (
@@ -10,7 +10,7 @@ export default function EyeOfRa({ className = '' }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="Œil de Ra — MA LUXURY"
+      aria-label="Œil de Ra — MY LUXURY"
     >
       {/* ── Paupière supérieure (forme amande) ── */}
       <path

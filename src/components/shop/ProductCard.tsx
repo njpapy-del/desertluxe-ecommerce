@@ -6,9 +6,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ShoppingBag, Heart, Star, Eye } from 'lucide-react'
-import { useCartStore } from '@/store/cartStore'
-import { fmtEur, fmtTnd } from '@/lib/priceUtils'
-import type { Product } from '@/types'
+import { useCartStore }   from '@/store/cartStore'
+import { useLocaleStore } from '@/store/localeStore'
+import { fmtPrice }       from '@/lib/priceUtils'
+import type { Product }   from '@/types'
 
 interface ProductCardProps {
   product: Product
@@ -45,7 +46,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [adding,   setAdding]   = useState(false)
   const [hovered,  setHovered]  = useState(false)
 
-  const { addItem } = useCartStore()
+  const { addItem }        = useCartStore()
+  const { t, currency }   = useLocaleStore()
 
   // ── Magnetic tilt via mouse ──────────────────────────────────────────────
   const mouseX  = useMotionValue(0)
@@ -198,7 +200,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <motion.span animate={adding ? { rotate: 360 } : { rotate: 0 }} transition={{ duration: 0.5 }}>
               <ShoppingBag className="w-3.5 h-3.5" />
             </motion.span>
-            {product.stock === 0 ? 'Rupture' : adding ? 'Ajouté ✓' : 'Ajouter au panier'}
+            {product.stock === 0 ? t.product.outOfStock : adding ? t.product.added : t.product.addToCart}
           </motion.button>
         </motion.div>
       </div>
@@ -235,27 +237,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
 
-        <div className="flex flex-col gap-0.5">
-          <div className="flex items-center gap-2">
-            <span className="font-sans font-semibold text-luxury-dark text-[15px]">
-              {fmtEur(product.price)}
+        <div className="flex items-center gap-2">
+          <span className="font-sans font-semibold text-luxury-dark text-[15px]">
+            {fmtPrice(product.price, currency)}
+          </span>
+          {product.comparePrice && (
+            <span className="font-sans text-xs text-luxury-light line-through">
+              {fmtPrice(product.comparePrice, currency)}
             </span>
-            {product.comparePrice && (
-              <span className="font-sans text-xs text-luxury-light line-through">
-                {fmtEur(product.comparePrice)}
-              </span>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="font-sans text-[11px] text-gold-600 font-medium">
-              {fmtTnd(product.price)}
-            </span>
-            {product.comparePrice && (
-              <span className="font-sans text-[10px] text-luxury-light line-through">
-                {fmtTnd(product.comparePrice)}
-              </span>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </motion.div>

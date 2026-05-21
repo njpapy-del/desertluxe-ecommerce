@@ -171,10 +171,10 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-gold-500 shrink-0" />
                 <a
-                  href="mailto:contact@ma-luxury.com"
+                  href="mailto:contact@my-luxury.com"
                   className="text-xs text-cream-400 hover:text-gold-500 transition-colors font-sans"
                 >
-                  contact@ma-luxury.com
+                  contact@my-luxury.com
                 </a>
               </li>
             </ul>
@@ -200,7 +200,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5
                         flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-cream-500 font-sans">
-            © {new Date().getFullYear()} MA LUXURY — Fondée par Madame Rebbai Afef. Tous droits réservés.
+            © {new Date().getFullYear()} MY LUXURY — Fondée par Madame Rebbai Afef. Tous droits réservés.
           </p>
           <div className="flex items-center gap-3">
             {['VISA', 'MC', 'AMEX', 'PayPal', 'Apple Pay'].map((pm) => (

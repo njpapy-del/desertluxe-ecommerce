@@ -26,10 +26,10 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json()
-    console.log('[webhook/messenger] POST MA LUXURY DUBAI', JSON.stringify(body))
+    console.log('[webhook/messenger] POST MY LUXURY', JSON.stringify(body))
 
     handleIncomingMessage(body).catch(err =>
-      console.error('[webhook/messenger] chatbot error MA LUXURY DUBAI', err),
+      console.error('[webhook/messenger] chatbot error MY LUXURY', err),
     )
   } catch {
     // payload non-JSON ignoré

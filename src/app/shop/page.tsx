@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: 'Boutique',
-  description: 'Découvrez toute la collection MA LUXURY — sacs à main, accessoires et articles de luxe.',
+  description: 'Découvrez toute la collection MY LUXURY — sacs à main, accessoires et articles de luxe.',
 }
 
 export default function ShopPage() {

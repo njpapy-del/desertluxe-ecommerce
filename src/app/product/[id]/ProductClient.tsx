@@ -68,7 +68,7 @@ export default function ProductClient({ id }: { id: string }) {
             >
               <Image
                 src={product.images[activeImg]}
-                alt={`${product.name} — MA LUXURY`}
+                alt={`${product.name} — MY LUXURY`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

@@ -4,35 +4,45 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
 import { ShoppingBag, Search, User, Menu, X } from 'lucide-react'
-import { useCartStore } from '@/store/cartStore'
-import EyeOfRa from '@/components/ui/EyeOfRa'
-
-const NAV_LINKS = [
-  { label: 'Accueil',     href: '/'                           },
-  { label: 'Boutique',    href: '/shop'                       },
-  { label: 'Nouveautés',  href: '/shop?category=nouveautes'   },
-  { label: 'Sacs',        href: '/shop?category=sacs-a-main'  },
-  { label: 'Accessoires', href: '/shop?category=accessoires'  },
-  { label: 'À propos',    href: '/about'                      },
-]
+import { useCartStore }   from '@/store/cartStore'
+import { useLocaleStore } from '@/store/localeStore'
+import EyeOfRa            from '@/components/ui/EyeOfRa'
+import LocaleSwitcher     from '@/components/ui/LocaleSwitcher'
 
 export default function Header() {
-  const [scrolled, setScrolled]     = useState(false)
-  const [hidden, setHidden]         = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [query, setQuery]           = useState('')
-  const [lastY, setLastY]           = useState(0)
+  const [scrolled,    setScrolled]    = useState(false)
+  const [hidden,      setHidden]      = useState(false)
+  const [mobileOpen,  setMobileOpen]  = useState(false)
+  const [searchOpen,  setSearchOpen]  = useState(false)
+  const [query,       setQuery]       = useState('')
+  const [lastY,       setLastY]       = useState(0)
+  const [mounted,     setMounted]     = useState(false)
 
-  const { itemCount, toggleCart } = useCartStore()
-  const { scrollY }               = useScroll()
+  const { itemCount, toggleCart }     = useCartStore()
+  const { t, locale }                 = useLocaleStore()
+  const { scrollY }                   = useScroll()
 
-  // Shrink + hide on scroll down
+  useEffect(() => {
+    setMounted(true)
+    useCartStore.persist.rehydrate()
+  }, [])
+
   useMotionValueEvent(scrollY, 'change', (y) => {
     setScrolled(y > 40)
     setHidden(y > lastY && y > 120)
     setLastY(y)
   })
+
+  const NAV_LINKS = [
+    { label: t.nav.home,        href: '/'                           },
+    { label: t.nav.shop,        href: '/shop'                       },
+    { label: t.nav.newArrivals, href: '/shop?category=nouveautes'   },
+    { label: t.nav.bags,        href: '/shop?category=sacs-a-main'  },
+    { label: t.nav.accessories, href: '/shop?category=accessoires'  },
+    { label: t.nav.about,       href: '/about'                      },
+  ]
+
+  const isRtl = locale === 'ar'
 
   return (
     <>
@@ -44,7 +54,7 @@ export default function Header() {
         className="bg-luxury-dark text-cream-200 text-center py-2
                    text-[11px] tracking-[0.2em] uppercase font-sans"
       >
-        Livraison offerte dès 200€ · Retours 30 jours · Paiement sécurisé
+        {t.announcement}
       </motion.div>
 
       {/* ── Main header ──────────────────────────────────── */}
@@ -77,10 +87,7 @@ export default function Header() {
             </nav>
 
             {/* ── Logo ───────────────────────────────────── */}
-            <Link
-              href="/"
-              className="absolute left-1/2 -translate-x-1/2"
-            >
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2">
               <motion.div
                 className="flex flex-col items-center"
                 whileHover={{ scale: 1.04 }}
@@ -95,7 +102,7 @@ export default function Header() {
                 >
                   <span className="inline-flex items-center gap-2">
                     <EyeOfRa className="w-6 h-4 text-gold-500 opacity-90" />
-                    MA <span className="text-gold-500">LUXURY</span>
+                    MY <span className="text-gold-500">LUXURY</span>
                   </span>
                 </motion.span>
                 <motion.span
@@ -110,7 +117,7 @@ export default function Header() {
             </Link>
 
             {/* ── Right nav + icons ──────────────────────── */}
-            <div className="flex items-center gap-6">
+            <div className={`flex items-center gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
               <nav className="hidden lg:flex items-center gap-8">
                 {NAV_LINKS.slice(3).map((link, i) => (
                   <motion.div
@@ -128,11 +135,17 @@ export default function Header() {
 
               {/* Icon buttons */}
               <div className="flex items-center gap-3">
+                {/* Language / currency switcher */}
+                <div className="hidden md:block">
+                  <LocaleSwitcher />
+                </div>
+
                 <motion.button
                   whileHover={{ scale: 1.1, color: '#C9A96E' }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setSearchOpen(!searchOpen)}
                   className="p-1.5 text-luxury-dark transition-colors"
+                  aria-label={t.search.placeholder}
                 >
                   <Search className="w-5 h-5" />
                 </motion.button>
@@ -143,16 +156,17 @@ export default function Header() {
                   </Link>
                 </motion.div>
 
-                {/* Cart with badge pulse */}
+                {/* Cart with badge */}
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={toggleCart}
                   className="relative p-1.5 text-luxury-dark hover:text-gold-500 transition-colors"
+                  aria-label={t.cart.title}
                 >
                   <ShoppingBag className="w-5 h-5" />
                   <AnimatePresence>
-                    {itemCount() > 0 && (
+                    {mounted && itemCount() > 0 && (
                       <motion.span
                         key={itemCount()}
                         initial={{ scale: 0, opacity: 0 }}
@@ -174,10 +188,11 @@ export default function Header() {
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setMobileOpen(!mobileOpen)}
                   className="lg:hidden p-1.5 text-luxury-dark"
+                  aria-label="Menu"
                 >
                   <AnimatePresence mode="wait">
                     {mobileOpen
-                      ? <motion.div key="x"   initial={{ rotate: -90 }} animate={{ rotate: 0 }}><X    className="w-5 h-5" /></motion.div>
+                      ? <motion.div key="x"    initial={{ rotate: -90 }} animate={{ rotate: 0 }}><X    className="w-5 h-5" /></motion.div>
                       : <motion.div key="menu" initial={{ rotate:  90 }} animate={{ rotate: 0 }}><Menu className="w-5 h-5" /></motion.div>
                     }
                   </AnimatePresence>
@@ -204,7 +219,7 @@ export default function Header() {
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Rechercher sacs, accessoires, collections…"
+                    placeholder={t.search.placeholder}
                     className="w-full pl-11 pr-4 py-3 border border-cream-400 bg-white text-sm
                                font-sans placeholder:text-luxury-light focus:border-gold-500
                                focus:ring-1 focus:ring-gold-500 outline-none transition-colors"
@@ -235,17 +250,18 @@ export default function Header() {
               onClick={() => setMobileOpen(false)}
             />
             <motion.nav
-              initial={{ x: '-100%' }}
+              initial={{ x: isRtl ? '100%' : '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
+              exit={{ x: isRtl ? '100%' : '-100%' }}
               transition={{ type: 'tween', duration: 0.32, ease: [0.25, 0.1, 0.25, 1] }}
-              className="fixed left-0 top-0 bottom-0 w-72 bg-white z-50 flex flex-col lg:hidden shadow-luxury-lg"
+              className={`fixed top-0 bottom-0 w-72 bg-white z-50 flex flex-col lg:hidden shadow-luxury-lg
+                         ${isRtl ? 'right-0' : 'left-0'}`}
             >
               <div className="flex items-center justify-between p-5 border-b border-cream-300">
                 <span className="font-serif text-xl tracking-wider">
                   <span className="inline-flex items-center gap-2">
                     <EyeOfRa className="w-6 h-4 text-gold-500 opacity-90" />
-                    MA <span className="text-gold-500">LUXURY</span>
+                    MY <span className="text-gold-500">LUXURY</span>
                   </span>
                 </span>
                 <motion.button whileTap={{ scale: 0.9 }} onClick={() => setMobileOpen(false)}>
@@ -254,10 +270,14 @@ export default function Header() {
               </div>
 
               <div className="flex-1 overflow-y-auto py-4 px-5">
+                {/* Language switcher in mobile menu */}
+                <div className="pb-4 mb-2 border-b border-cream-200">
+                  <LocaleSwitcher />
+                </div>
                 {NAV_LINKS.map((link, i) => (
                   <motion.div
                     key={link.href}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.06, duration: 0.35 }}
                   >
@@ -286,7 +306,7 @@ export default function Header() {
                              text-xs tracking-widest uppercase font-sans font-medium
                              hover:bg-gold-500 hover:text-white transition-colors"
                 >
-                  Espace Admin
+                  {t.nav.adminSpace}
                 </Link>
               </motion.div>
             </motion.nav>

@@ -19,12 +19,12 @@ function buildProductContext(): string {
 }
 
 function buildSystemPrompt(): string {
-  return `Tu es Leila, la conseillère IA de MA LUXURY — boutique de mode luxe importée de Dubaï et Turquie, livraison en Tunisie.
+  return `Tu es Leila, la conseillère IA de MY LUXURY — boutique de mode luxe importée de Dubaï et Turquie, livraison en Tunisie.
 
 Personnalité : élégante, chaleureuse, professionnelle. Experte en sacs, robes, chaussures, bijoux, huiles capillaires et parfums arabes.
 Langue : réponds toujours en français. Sois précise et concise (2-4 phrases max).
 
-FAITS STRICTS sur MA LUXURY — tu ne peux affirmer QUE ces faits :
+FAITS STRICTS sur MY LUXURY — tu ne peux affirmer QUE ces faits :
 - Livraison UNIQUEMENT en Tunisie, délai 24-48h. Zéro livraison internationale.
 - Retours gratuits sous 30 jours
 - Paiement sécurisé en ligne ou à la livraison
@@ -124,7 +124,7 @@ function ruleBasedResponse(message: string): string {
   const q = message.toLowerCase()
 
   if (/bonjour|salut|hello|bonsoir|salam|hi\b/.test(q))
-    return 'Bonjour et bienvenue chez MA LUXURY ! Je suis Leila, votre conseillère mode. Comment puis-je vous aider aujourd\'hui ?'
+    return 'Bonjour et bienvenue chez MY LUXURY ! Je suis Leila, votre conseillère mode. Comment puis-je vous aider aujourd\'hui ?'
 
   if (/livraison|délai|expédition|recevoir/.test(q))
     return 'Livraison rapide partout en Tunisie sous 24 à 48h. Tous nos produits sont importés directement de Dubaï et Turquie. 📦'

@@ -1,0 +1,82 @@
+import type { Translations } from './types'
+
+const ar: Translations = {
+  nav: {
+    home:        'الرئيسية',
+    shop:        'المتجر',
+    newArrivals: 'وصل حديثاً',
+    bags:        'الحقائب',
+    accessories: 'الإكسسوارات',
+    about:       'من نحن',
+    adminSpace:  'الإدارة',
+    perfumes:    'العطور',
+  },
+  announcement: 'توصيل مجاني للطلبات فوق 200 AED · إرجاع خلال 30 يوماً · دفع آمن',
+  search: {
+    placeholder: 'ابحث عن حقائب، إكسسوارات، مجموعات…',
+  },
+  product: {
+    addToCart:    'أضف إلى السلة',
+    outOfStock:   'غير متوفر',
+    limitedStock: 'كمية محدودة',
+    newBadge:     'جديد',
+    viewProduct:  'عرض المنتج',
+    wishlist:     'المفضلة',
+    added:        'تمت الإضافة ✓',
+    updated:      'تم تحديث الكمية',
+  },
+  cart: {
+    title:     'سلة التسوق',
+    empty:     'سلتك فارغة',
+    emptyHint: 'اكتشف مجموعاتنا الفاخرة',
+    browse:    'تصفح المجموعات',
+    checkout:  'الدفع',
+    total:     'المجموع',
+    remove:    'حذف',
+    items:     'منتجات',
+  },
+  categories: {
+    title:    'استكشف مجموعاتنا',
+    subtitle: 'فساتين، مجوهرات، أحذية وحقائب',
+    explore:  'استكشف',
+    pieces:   'قطعة',
+  },
+  home: {
+    heroTitle:        'أزياء فاخرة\nمستوحاة من دبي',
+    heroSubtitle:     'حقائب راقية، إكسسوارات حصرية وعطور نادرة من شبه الجزيرة العربية',
+    heroCta:          'تسوق الآن',
+    heroCtaSecondary: 'اكتشف المجموعة',
+    featuredTitle:    'قطع مميزة',
+    featuredSubtitle: 'منتخبة بعناية للذوق الرفيع',
+    newCollection:    'مجموعة جديدة',
+    bestSellers:      'الأكثر مبيعاً',
+    weeklyPromo:      'عروض الأسبوع',
+    flashSale:        'تخفيضات سريعة',
+    viewAll:          'عرض الكل',
+  },
+  footer: {
+    tagline:            'أزياء فاخرة مستوحاة من أناقة دبي',
+    newsletterTitle:    'انضم إلى دائرة MY LUXURY',
+    newsletterSubtitle: 'عروض حصرية، وصول جديد وإلهام أسلوب حياة',
+    placeholder:        'بريدك الإلكتروني',
+    subscribe:          'اشترك',
+    quickLinks:         'روابط سريعة',
+    legal:              'قانوني',
+    rights:             '© 2026 MY LUXURY. جميع الحقوق محفوظة.',
+    whatsappCta:        'تحدث عبر واتساب',
+    privacy:            'سياسة الخصوصية',
+    terms:              'شروط الخدمة',
+  },
+  currency: {
+    label: 'العملة',
+    aed:   'AED — درهم',
+    tnd:   'TND — دينار',
+  },
+  language: {
+    label:   'اللغة',
+    english: 'English',
+    arabic:  'العربية',
+  },
+}
+
+export default ar

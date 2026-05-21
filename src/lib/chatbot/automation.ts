@@ -1,4 +1,4 @@
-// Business automation placeholders — MA LUXURY DUBAI
+// Business automation placeholders — MY LUXURY
 // Brancher sur Supabase / Stripe / Cal.com selon les besoins futurs
 
 export interface AppointmentRequest {

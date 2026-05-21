@@ -55,7 +55,7 @@ export default async function HomePage() {
             {[
               { emoji: '✈️', title: 'Expédition Dubai',   sub: 'Départ depuis Dubaï, EAU'    },
               { emoji: '🔒', title: 'Paiement 100% sécurisé', sub: 'Stripe + PayPal'         },
-              { emoji: '📦', title: 'Emballage Luxe',     sub: 'Boîte MA LUXURY signature'  },
+              { emoji: '📦', title: 'Emballage Luxe',     sub: 'Boîte MY LUXURY signature'  },
               { emoji: '💬', title: 'Support 7j/7',       sub: 'WhatsApp & chat en direct'    },
             ].map((item) => (
               <div key={item.title} className="flex flex-col items-center gap-2">
@@ -81,7 +81,7 @@ export default async function HomePage() {
               </h2>
               <div className="gold-divider mb-6" />
               <p className="text-luxury-gray font-sans text-sm leading-relaxed mb-4">
-                MA LUXURY est née d&apos;une passion pour la beauté du désert et le raffinement
+                MY LUXURY est née d&apos;une passion pour la beauté du désert et le raffinement
                 de la mode internationale. Chaque pièce de notre collection raconte une histoire
                 d&apos;artisanat, de précision et d&apos;élégance intemporelle.
               </p>
@@ -127,7 +127,7 @@ export default async function HomePage() {
               <div className="relative h-[520px] overflow-hidden">
                 <img
                   src="/images/robe-luxe.png"
-                  alt="Robe de Luxe MA LUXURY"
+                  alt="Robe de Luxe MY LUXURY"
                   className="w-full h-full object-cover object-top
                              transition-transform duration-700 group-hover:scale-105"
                 />
@@ -156,7 +156,7 @@ export default async function HomePage() {
               <div className="relative h-[520px] overflow-hidden">
                 <img
                   src="/images/robe-tunis.png"
-                  alt="Robe Tunisie MA LUXURY"
+                  alt="Robe Tunisie MY LUXURY"
                   className="w-full h-full object-cover object-top
                              transition-transform duration-700 group-hover:scale-105"
                 />

@@ -343,7 +343,7 @@ export default function HairOilVitamins() {
 
           <p style={{ fontSize: 10, letterSpacing: '0.42em', textTransform: 'uppercase' }}
             className="text-gold-400 font-sans mb-4">
-            Huile de Cheveux MA LUXURY
+            Huile de Cheveux MY LUXURY
           </p>
 
           <h2 className="font-serif text-white leading-tight mb-4"

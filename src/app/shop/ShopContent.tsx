@@ -54,7 +54,7 @@ export default function ShopContent() {
       {/* ── Page header ──────────────────────────────── */}
       <div className="bg-luxury-dark py-16 text-center">
         <p className="text-gold-400 text-xs tracking-[0.3em] uppercase font-sans mb-3">
-          MA LUXURY
+          MY LUXURY
         </p>
         <h1 className="font-serif text-4xl text-white mb-2">
           {selectedCategory?.name || 'Boutique'}

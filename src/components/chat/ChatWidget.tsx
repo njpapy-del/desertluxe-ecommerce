@@ -20,7 +20,7 @@ export default function ChatWidget() {
       id: 'welcome',
       role: 'assistant',
       content:
-        "Bonjour ! Je suis **Leila**, votre conseillère MA LUXURY. Comment puis-je vous aider aujourd'hui ? 🌟",
+        "Bonjour ! Je suis **Leila**, votre conseillère MY LUXURY. Comment puis-je vous aider aujourd'hui ? 🌟",
       createdAt: new Date(),
     },
   ])
@@ -95,7 +95,7 @@ export default function ChatWidget() {
     setMessages([{
       id: 'welcome',
       role: 'assistant',
-      content: "Bonjour ! Je suis **Leila**, votre conseillère MA LUXURY. Comment puis-je vous aider aujourd'hui ? 🌟",
+      content: "Bonjour ! Je suis **Leila**, votre conseillère MY LUXURY. Comment puis-je vous aider aujourd'hui ? 🌟",
       createdAt: new Date(),
     }])
   }
@@ -153,7 +153,7 @@ export default function ChatWidget() {
                     <p className="font-serif text-sm">Leila</p>
                     <Sparkles className="w-3 h-3 text-gold-400" />
                   </div>
-                  <p className="text-[10px] text-cream-400 font-sans">Conseillère MA LUXURY · IA</p>
+                  <p className="text-[10px] text-cream-400 font-sans">Conseillère MY LUXURY · IA</p>
                 </div>
               </div>
               <button

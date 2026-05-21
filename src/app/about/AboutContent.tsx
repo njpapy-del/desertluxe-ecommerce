@@ -165,7 +165,7 @@ export default function AboutContent() {
               className="space-y-5 text-luxury-light leading-relaxed font-sans text-sm md:text-base"
             >
               <p>
-                <strong className="text-luxury-dark font-medium">MA LUXURY</strong> est
+                <strong className="text-luxury-dark font-medium">MY LUXURY</strong> est
                 née d&apos;un constat simple : les femmes tunisiennes méritent d&apos;accéder
                 aux plus belles créations de la mode mondiale, sans compromis sur la qualité
                 ni sur le prix.
@@ -278,7 +278,7 @@ export default function AboutContent() {
           custom={1}
           className="font-serif text-3xl md:text-4xl text-luxury-dark font-light text-center mb-12"
         >
-          Pourquoi choisir MA LUXURY ?
+          Pourquoi choisir MY LUXURY ?
         </motion.h2>
         <motion.div
           variants={fadeUp}
@@ -287,7 +287,7 @@ export default function AboutContent() {
         >
           <p>
             Dans un marché saturé de contrefaçons et de produits de mauvaise qualité,
-            <strong className="text-luxury-dark font-medium"> MA LUXURY</strong> s&apos;est
+            <strong className="text-luxury-dark font-medium"> MY LUXURY</strong> s&apos;est
             imposée comme la référence fiable pour toutes les femmes tunisiennes qui souhaitent
             investir dans un accessoire de mode qui dure.
           </p>

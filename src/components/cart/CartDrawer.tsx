@@ -5,12 +5,15 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { X, ShoppingBag, Minus, Plus, Trash2, ArrowRight, MessageCircle } from 'lucide-react'
-import { useCartStore } from '@/store/cartStore'
+import { useCartStore }   from '@/store/cartStore'
+import { useLocaleStore } from '@/store/localeStore'
+import { fmtPrice }       from '@/lib/priceUtils'
 
 const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904').replace(/\D/g, '')
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, total } = useCartStore()
+  const { t, currency } = useLocaleStore()
 
   // Rehydrate Zustand depuis localStorage après le montage client
   useEffect(() => {
@@ -19,11 +22,11 @@ export default function CartDrawer() {
 
   const buildWhatsAppMessage = () => {
     const lines = items.map(
-      (i) => `- ${i.name} x${i.quantity} = ${(i.price * i.quantity).toFixed(0)}€`
+      (i) => `- ${i.name} x${i.quantity} = ${fmtPrice(i.price * i.quantity, currency)}`
     )
-    lines.push(`\nTOTAL: ${total().toFixed(0)}€`)
+    lines.push(`\nTOTAL: ${fmtPrice(total(), currency)}`)
     lines.push(`\nPayer en ligne: ${process.env.NEXT_PUBLIC_APP_URL}/checkout`)
-    return encodeURIComponent(`Bonjour MA LUXURY!\n\nJe souhaite commander:\n${lines.join('\n')}`)
+    return encodeURIComponent(`Bonjour MY LUXURY!\n\nJe souhaite commander:\n${lines.join('\n')}`)
   }
 
   return (
@@ -57,11 +60,11 @@ export default function CartDrawer() {
               <div className="flex items-center gap-3">
                 <ShoppingBag className="w-5 h-5 text-gold-500" />
                 <h2 className="font-serif text-lg text-luxury-dark">
-                  Mon Panier
+                  {t.cart.title}
                 </h2>
                 {items.length > 0 && (
                   <span className="text-xs text-luxury-gray font-sans">
-                    ({items.reduce((s, i) => s + i.quantity, 0)} articles)
+                    ({items.reduce((s, i) => s + i.quantity, 0)} {t.cart.items})
                   </span>
                 )}
               </div>
@@ -76,9 +79,9 @@ export default function CartDrawer() {
                 <div className="flex flex-col items-center justify-center h-full text-center gap-4">
                   <ShoppingBag className="w-16 h-16 text-cream-400" />
                   <div>
-                    <p className="font-serif text-lg text-luxury-dark mb-1">Votre panier est vide</p>
+                    <p className="font-serif text-lg text-luxury-dark mb-1">{t.cart.empty}</p>
                     <p className="text-sm text-luxury-gray font-sans">
-                      Découvrez nos collections exclusives
+                      {t.cart.emptyHint}
                     </p>
                   </div>
                   <Link
@@ -86,7 +89,7 @@ export default function CartDrawer() {
                     onClick={closeCart}
                     className="btn-luxury text-xs py-2.5 px-6 mt-2"
                   >
-                    Voir la boutique
+                    {t.cart.browse}
                   </Link>
                 </div>
               ) : (
@@ -110,7 +113,7 @@ export default function CartDrawer() {
                           {item.name}
                         </h3>
                         <p className="text-xs text-gold-500 font-sans font-semibold mb-3">
-                          {item.price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+                          {fmtPrice(item.price, currency)}
                         </p>
 
                         {/* Quantity + Remove */}
@@ -153,29 +156,22 @@ export default function CartDrawer() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm font-sans">
                     <span className="text-luxury-gray">Sous-total</span>
-                    <span className="font-medium">
-                      {total().toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
-                    </span>
+                    <span className="font-medium">{fmtPrice(total(), currency)}</span>
                   </div>
                   <div className="flex justify-between text-sm font-sans">
                     <span className="text-luxury-gray">Livraison</span>
                     <span className={total() >= 200 ? 'text-green-600' : 'text-luxury-dark'}>
-                      {total() >= 200 ? 'Gratuite' : '15,00 €'}
+                      {total() >= 200 ? 'Gratuite' : fmtPrice(15, currency)}
                     </span>
                   </div>
                   {total() < 200 && (
                     <p className="text-[11px] text-gold-500 font-sans">
-                      Encore {(200 - total()).toFixed(0)}€ pour la livraison gratuite
+                      Encore {fmtPrice(200 - total(), currency)} pour la livraison gratuite
                     </p>
                   )}
                   <div className="flex justify-between font-sans font-semibold text-base pt-2 border-t border-cream-300">
-                    <span>Total</span>
-                    <span>
-                      {(total() + (total() >= 200 ? 0 : 15)).toLocaleString('fr-FR', {
-                        style: 'currency',
-                        currency: 'EUR',
-                      })}
-                    </span>
+                    <span>{t.cart.total}</span>
+                    <span>{fmtPrice(total() + (total() >= 200 ? 0 : 15), currency)}</span>
                   </div>
                 </div>
 
@@ -187,7 +183,7 @@ export default function CartDrawer() {
                              py-4 text-xs tracking-widest uppercase font-sans font-medium
                              hover:bg-gold-500 transition-colors"
                 >
-                  Commander <ArrowRight className="w-4 h-4" />
+                  {t.cart.checkout} <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 {WHATSAPP && (
@@ -200,7 +196,7 @@ export default function CartDrawer() {
                                hover:bg-[#1EBE5D] transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    Commander sur WhatsApp
+                    {t.footer.whatsappCta}
                   </a>
                 )}
               </div>

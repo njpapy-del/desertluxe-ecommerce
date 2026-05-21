@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 const ITEMS = [
-  '✨ Promotions exclusives MA LUXURY',
+  '✨ Promotions exclusives MY LUXURY',
   'Livraison offerte en Tunisie',
   '💎 Collection Dubai 2026',
   'Emballage luxe signature',

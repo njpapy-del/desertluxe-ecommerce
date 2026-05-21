@@ -75,7 +75,7 @@ async function notifyAdminWhatsApp(order: any, items: any[]) {
   if (!WA_TOKEN || !WA_PHONE_ID || !ADMIN_PHONE) return
 
   const itemsList = items.map((i) => `• ${i.name} x${i.quantity} = ${(i.price * i.quantity).toFixed(0)}€`).join('\n')
-  const message   = `🛍️ *Nouvelle commande MA LUXURY!*\n\n📋 *${order.orderNumber}*\n\n${itemsList}\n\n💰 Total: ${order.total}€\n\n👤 ${order.shippingAddress.firstName} ${order.shippingAddress.lastName}\n📧 ${order.shippingAddress.email}`
+  const message   = `🛍️ *Nouvelle commande MY LUXURY!*\n\n📋 *${order.orderNumber}*\n\n${itemsList}\n\n💰 Total: ${order.total}€\n\n👤 ${order.shippingAddress.firstName} ${order.shippingAddress.lastName}\n📧 ${order.shippingAddress.email}`
 
   try {
     await fetch(`https://graph.facebook.com/v18.0/${WA_PHONE_ID}/messages`, {

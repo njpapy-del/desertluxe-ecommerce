@@ -27,7 +27,7 @@ const DAYS: DayConfig[] = [
   // 5 Friday
   { icon: '👠', title: 'Vendredi Fashion', subtitle: "Chaussures & accessoires tendance — les incontournables de la semaine", category: 'chaussures', particles: true },
   // 6 Saturday
-  { icon: '🌟', title: 'Dubai Luxury Week', subtitle: 'Fin de semaine — profitez de toute la sélection MA LUXURY', category: '', particles: true },
+  { icon: '🌟', title: 'Dubai Luxury Week', subtitle: 'Fin de semaine — profitez de toute la sélection MY LUXURY', category: '', particles: true },
 ]
 
 export default function WeeklyPromos() {

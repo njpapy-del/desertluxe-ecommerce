@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Playfair_Display, Inter, Cormorant_Garamond } from 'next/font/google'
+import { Playfair_Display, Inter, Cormorant_Garamond, Noto_Naskh_Arabic } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -9,6 +9,7 @@ import WhatsAppFloat from '@/components/ui/WhatsAppFloat'
 import InstagramFloat from '@/components/ui/InstagramFloat'
 import FacebookFloat from '@/components/ui/FacebookFloat'
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
+import LocaleProvider from '@/components/ui/LocaleProvider'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import './globals.css'
 
@@ -29,91 +30,92 @@ const cormorant = Cormorant_Garamond({
   weight:   ['300', '400', '500'],
   variable: '--font-cormorant',
   display:  'swap',
-  preload:  false, // évite le warning "preloaded but not used" sur les pages sans ce font
+  preload:  false,
+})
+
+const notoArabic = Noto_Naskh_Arabic({
+  subsets:  ['arabic'],
+  weight:   ['400', '500', '600', '700'],
+  variable: '--font-arabic',
+  display:  'swap',
+  preload:  false,
 })
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://desertluxe-ecommerce.vercel.app'
 
 export const metadata: Metadata = {
-  // ── Base URL — résout tous les chemins relatifs (og images, canonical…) ────
   metadataBase: new URL(BASE_URL),
 
-  // ── Titre ──────────────────────────────────────────────────────────────────
   title: {
-    default:  'Ma Luxury | Luxury Bags & Fashion Inspired by Dubai Elegance',
-    template: '%s | Ma Luxury',
+    default:  'My Luxury | Luxury Bags & Fashion Inspired by Dubai Elegance',
+    template: '%s | My Luxury',
   },
 
-  // ── Description ────────────────────────────────────────────────────────────
   description:
-    'Ma Luxury is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance, modern luxury and desert aesthetics. Fast worldwide delivery.',
+    'My Luxury is a luxury fashion brand offering premium handbags, accessories and Arabian perfumes inspired by Dubai elegance. Fast worldwide delivery.',
 
-  // ── Mots-clés ──────────────────────────────────────────────────────────────
   keywords: [
     'luxury bags', 'Dubai fashion', 'designer handbags', 'premium accessories',
-    'luxury e-commerce', 'Ma Luxury', 'sacs luxe Dubai', 'mode luxe',
-    'sacs à main créateur', 'accessoires luxe Tunisie',
+    'luxury e-commerce', 'My Luxury', 'Arabian perfumes', 'Ibraq perfumes',
+    'luxury Dubai', 'حقائب فاخرة', 'موضة دبي', 'عطور عربية',
   ],
 
-  // ── Auteur / marque ────────────────────────────────────────────────────────
-  authors:  [{ name: 'Ma Luxury', url: BASE_URL }],
-  creator:  'Ma Luxury',
-  publisher:'Ma Luxury',
+  authors:  [{ name: 'My Luxury', url: BASE_URL }],
+  creator:  'My Luxury',
+  publisher:'My Luxury',
 
-  // ── Canonical ──────────────────────────────────────────────────────────────
   alternates: {
     canonical: BASE_URL,
+    languages: {
+      'en-US': `${BASE_URL}`,
+      'ar-AE': `${BASE_URL}`,
+    },
   },
 
-  // ── Google Search Console verification ────────────────────────────────────
   verification: {
     google: 'kDG7OC1VAzRGKVctU6suy-U-mjwFD1ubjbnOo-IzHpo',
   },
 
-  // ── Open Graph ─────────────────────────────────────────────────────────────
   openGraph: {
-    type:        'website',
-    locale:      'fr_FR',
-    alternateLocale: ['en_US', 'ar_AE'],
-    url:         BASE_URL,
-    siteName:    'Ma Luxury',
-    title:       'Ma Luxury | Luxury Bags & Fashion Inspired by Dubai Elegance',
-    description: 'Ma Luxury is a luxury fashion brand offering premium handbags and accessories inspired by Dubai elegance. Fast worldwide delivery.',
+    type:            'website',
+    locale:          'en_US',
+    alternateLocale: ['ar_AE'],
+    url:             BASE_URL,
+    siteName:        'My Luxury',
+    title:           'My Luxury | Luxury Bags & Fashion Inspired by Dubai Elegance',
+    description:     'My Luxury — premium handbags, accessories and Arabian perfumes inspired by Dubai elegance.',
     images: [
       {
         url:    '/og-image.jpg',
         width:  1200,
         height: 630,
-        alt:    'Ma Luxury — Luxury Fashion Inspired by Dubai',
+        alt:    'My Luxury — Luxury Fashion Inspired by Dubai',
       },
     ],
   },
 
-  // ── Twitter / X Card ───────────────────────────────────────────────────────
   twitter: {
     card:        'summary_large_image',
-    site:        '@ma-luxury',
-    creator:     '@ma-luxury',
-    title:       'Ma Luxury | Luxury Bags & Fashion Inspired by Dubai',
-    description: 'Premium handbags and accessories inspired by Dubai elegance.',
+    site:        '@myluxurydubai',
+    creator:     '@myluxurydubai',
+    title:       'My Luxury | Luxury Bags & Fashion Inspired by Dubai',
+    description: 'Premium handbags, accessories and Arabian perfumes inspired by Dubai elegance.',
     images:      ['/og-image.jpg'],
   },
 
-  // ── Indexation robots ──────────────────────────────────────────────────────
   robots: {
-    index:               true,
-    follow:              true,
+    index:  true,
+    follow: true,
     googleBot: {
-      index:             true,
-      follow:            true,
+      index:               true,
+      follow:              true,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet':       -1,
     },
   },
 
-  // ── App links ──────────────────────────────────────────────────────────────
-  applicationName: 'Ma Luxury',
+  applicationName: 'My Luxury',
   category:        'shopping',
 }
 
@@ -127,13 +129,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      lang="fr"
-      className={`${playfair.variable} ${inter.variable} ${cormorant.variable}`}
+      lang="en"
+      dir="ltr"
+      className={`${playfair.variable} ${inter.variable} ${cormorant.variable} ${notoArabic.variable}`}
     >
       <body>
-        {/* Gold scroll progress line */}
-        <ScrollProgressBar />
+        {/* Applies RTL + lang dynamically when user switches to Arabic */}
+        <LocaleProvider />
 
+        <ScrollProgressBar />
         <Header />
         <ErrorBoundary>
           <main>{children}</main>
