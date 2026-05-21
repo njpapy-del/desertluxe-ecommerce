@@ -12,11 +12,11 @@ type CatItem = { name: string; slug: string; image: string; count: string; descr
 
 const FEATURED: Record<Locale, CatItem[]> = {
   en: [
-    { name: 'Luxury Dresses', slug: 'robes',       image: '/images/ROBESLUXETURQUE.png', count: '24 pieces', description: 'Oriental elegance · Refined cuts · Prestige occasions', badge: 'Best Seller'     },
+    { name: 'Luxury Dresses', slug: 'robes',       image: '/images/robes de luxe.png', count: '24 pieces', description: 'Oriental elegance · Refined cuts · Prestige occasions', badge: 'Best Seller'     },
     { name: 'Luxury Bags',    slug: 'sacs-a-main', image: '/images/SACCPRO.png',          count: '48 pieces', description: 'Premium leather goods · Grained leathers · Imported from Dubai', badge: 'Dubai Collection' },
   ],
   ar: [
-    { name: 'فساتين فاخرة', slug: 'robes',       image: '/images/ROBESLUXETURQUE.png', count: '24 قطعة', description: 'أناقة شرقية · تصميمات راقية · مناسبات فاخرة', badge: 'الأكثر مبيعاً' },
+    { name: 'فساتين فاخرة', slug: 'robes',       image: '/images/robes de luxe.png', count: '24 قطعة', description: 'أناقة شرقية · تصميمات راقية · مناسبات فاخرة', badge: 'الأكثر مبيعاً' },
     { name: 'حقائب فاخرة',  slug: 'sacs-a-main', image: '/images/SACCPRO.png',          count: '48 قطعة', description: 'مستلزمات جلدية فاخرة · جلود مستوردة من دبي',   badge: 'مجموعة دبي'    },
   ],
 }
@@ -25,7 +25,7 @@ const CATEGORIES: Record<Locale, CatItem[]> = {
   en: [
     { name: 'Jewellery & Gold',  slug: 'bijoux',       image: '/images/OR44.png',            count: '7 pieces',  description: 'Yellow gold · White gold · 18-carat plated'       },
     { name: 'Shoes',             slug: 'chaussures',   image: '/images/CHAUSS23.png',         count: '12 pieces', description: 'Heels, sandals & premium ankle boots'              },
-    { name: 'Summer Sandals',    slug: 'chaussures',   image: '/images/or2566987.png',        count: '8 pieces',  description: 'Lightweight sandals · Dubai style · Luxury summer' },
+    { name: 'Summer Sandals',    slug: 'chaussures',   image: '/images/or25689.png',        count: '8 pieces',  description: 'Lightweight sandals · Dubai style · Luxury summer' },
     { name: 'Bags & Shoes',      slug: 'sacs-a-main',  image: '/images/SACCHAUSSURE.png',     count: '20 pieces', description: 'Matching bag + shoe sets'                          },
     { name: 'Hair Oil',          slug: 'huile-cheveux',image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=85&fit=crop&auto=format', count: '6 pieces', description: 'Hair care · Argan · Precious oils' },
     { name: 'Arabic Perfumes',   slug: 'parfums',      image: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=600&q=85&fit=crop&auto=format', count: '6 pieces', description: 'Oud · Rose · Amber · Musk · Ibraq Collection' },
@@ -33,7 +33,7 @@ const CATEGORIES: Record<Locale, CatItem[]> = {
   ar: [
     { name: 'مجوهرات وذهب',   slug: 'bijoux',       image: '/images/OR44.png',            count: '7 قطع',   description: 'ذهب أصفر · ذهب أبيض · مطلي 18 قيراط'              },
     { name: 'أحذية',           slug: 'chaussures',   image: '/images/CHAUSS23.png',         count: '12 قطعة', description: 'كعب عالٍ، صنادل وأحذية مميزة'                       },
-    { name: 'صندل الصيف',     slug: 'chaussures',   image: '/images/or2566987.png',        count: '8 قطع',   description: 'صنادل خفيفة · أسلوب دبي · صيف فاخر'                },
+    { name: 'صندل الصيف',     slug: 'chaussures',   image: '/images/or25689.png',        count: '8 قطع',   description: 'صنادل خفيفة · أسلوب دبي · صيف فاخر'                },
     { name: 'حقائب وأحذية',   slug: 'sacs-a-main',  image: '/images/SACCHAUSSURE.png',     count: '20 قطعة', description: 'أطقم حقائب وأحذية متناسقة'                          },
     { name: 'زيت الشعر',      slug: 'huile-cheveux',image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=85&fit=crop&auto=format', count: '6 قطع', description: 'عناية بالشعر · الأرغان · زيوت نادرة' },
     { name: 'عطور عربية',     slug: 'parfums',      image: 'https://images.unsplash.com/photo-1541643600914-78b084683702?w=600&q=85&fit=crop&auto=format', count: '6 قطع', description: 'عود · ورد · عنبر · مسك · مجموعة إبراق' },
