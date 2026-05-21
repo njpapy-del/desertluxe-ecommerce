@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Sparkles, ArrowRight } from 'lucide-react'
+import { useLocaleStore } from '@/store/localeStore'
+import type { Locale } from '@/locales/types'
 
 type DayConfig = {
   icon: string
@@ -13,61 +15,53 @@ type DayConfig = {
   particles: boolean
 }
 
-const DAYS: DayConfig[] = [
-  // 0 Sunday
-  { icon: '🏰', title: 'Dubai Luxury Week', subtitle: 'Weekend exclusif — toute la collection en vedette', category: '', particles: true },
-  // 1 Monday
-  { icon: '👜', title: 'Lundi Sac Premium', subtitle: 'Commencez la semaine avec nos sacs signature importés de Dubaï', category: 'sacs-a-main', particles: false },
-  // 2 Tuesday
-  { icon: '🧴', title: 'Mardi Beauté & Soins', subtitle: 'Huiles capillaires précieuses — argan, soins naturels importés de Dubaï', category: 'huile-cheveux', particles: true },
-  // 3 Wednesday
-  { icon: '💎', title: 'Mercredi Bijoux', subtitle: "Éclat de l'or — bijoux plaqués 18 carats, or jaune et or blanc", category: 'bijoux', particles: true },
-  // 4 Thursday
-  { icon: '👗', title: 'Robes de Prestige', subtitle: "Élégance orientale raffinée pour chaque occasion d'exception", category: 'robes', particles: false },
-  // 5 Friday
-  { icon: '👠', title: 'Vendredi Fashion', subtitle: "Chaussures & accessoires tendance — les incontournables de la semaine", category: 'chaussures', particles: true },
-  // 6 Saturday
-  { icon: '🌟', title: 'Dubai Luxury Week', subtitle: 'Fin de semaine — profitez de toute la sélection MY LUXURY', category: '', particles: true },
-]
+const DAYS: Record<Locale, DayConfig[]> = {
+  en: [
+    { icon: '🏰', title: 'Dubai Luxury Week',      subtitle: 'Exclusive weekend — the entire collection in the spotlight',      category: '',             particles: true  },
+    { icon: '👜', title: 'Premium Bag Monday',      subtitle: 'Start the week with our signature bags imported from Dubai',       category: 'sacs-a-main',  particles: false },
+    { icon: '🧴', title: 'Beauty & Care Tuesday',   subtitle: 'Precious hair oils — argan, natural care imported from Dubai',     category: 'huile-cheveux',particles: true  },
+    { icon: '💎', title: 'Jewellery Wednesday',     subtitle: 'Gold brilliance — 18-carat plated jewellery, yellow and white gold',category: 'bijoux',       particles: true  },
+    { icon: '👗', title: 'Prestige Dresses',        subtitle: 'Refined oriental elegance for every exceptional occasion',          category: 'robes',        particles: false },
+    { icon: '👠', title: 'Fashion Friday',          subtitle: 'Trend shoes & accessories — the must-haves of the week',           category: 'chaussures',   particles: true  },
+    { icon: '🌟', title: 'Dubai Luxury Week',      subtitle: 'End of week — enjoy the entire MY LUXURY selection',               category: '',             particles: true  },
+  ],
+  ar: [
+    { icon: '🏰', title: 'أسبوع دبي الفاخر',       subtitle: 'عطلة نهاية الأسبوع الحصرية — المجموعة كاملة في الواجهة',           category: '',             particles: true  },
+    { icon: '👜', title: 'إثنين الحقائب الفاخرة',   subtitle: 'ابدأي الأسبوع بحقائبنا الراقية المستوردة من دبي',                  category: 'sacs-a-main',  particles: false },
+    { icon: '🧴', title: 'ثلاثاء الجمال والعناية',  subtitle: 'زيوت الشعر النادرة — الأرغان، عناية طبيعية مستوردة من دبي',        category: 'huile-cheveux',particles: true  },
+    { icon: '💎', title: 'أربعاء المجوهرات',        subtitle: 'بريق الذهب — مجوهرات مطلية 18 قيراط، ذهب أصفر وأبيض',             category: 'bijoux',       particles: true  },
+    { icon: '👗', title: 'فساتين الأناقة',          subtitle: 'أناقة شرقية راقية لكل مناسبة استثنائية',                           category: 'robes',        particles: false },
+    { icon: '👠', title: 'جمعة الموضة',             subtitle: 'أحذية وإكسسوارات عصرية — أبرز قطع الأسبوع',                        category: 'chaussures',   particles: true  },
+    { icon: '🌟', title: 'أسبوع دبي الفاخر',       subtitle: 'نهاية الأسبوع — استمتعي بكامل تشكيلة MY LUXURY',                   category: '',             particles: true  },
+  ],
+}
 
 export default function WeeklyPromos() {
   const [cfg, setCfg] = useState<DayConfig | null>(null)
+  const { t, locale } = useLocaleStore()
 
-  // Defer to client to avoid hydration mismatch (server has no concept of "today")
   useEffect(() => {
-    setCfg(DAYS[new Date().getDay()])
-  }, [])
+    setCfg(DAYS[locale][new Date().getDay()])
+  }, [locale])
 
   if (!cfg) return null
 
   return (
     <section className="relative py-16 bg-luxury-dark overflow-hidden">
-      {/* Radial gold glow — GPU only, no layout impact */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(201,169,110,0.05), transparent 65%)' }}
       />
 
-      {/* Floating particles for special days */}
       {cfg.particles && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute rounded-full bg-gold-500"
-              style={{
-                width: 2,
-                height: 2,
-                left: `${8 + i * 12}%`,
-                top: `${15 + (i % 3) * 32}%`,
-              }}
+              style={{ width: 2, height: 2, left: `${8 + i * 12}%`, top: `${15 + (i % 3) * 32}%` }}
               animate={{ y: [0, -28, 0], opacity: [0, 0.55, 0] }}
-              transition={{
-                duration: 3.2 + i * 0.35,
-                repeat: Infinity,
-                delay: i * 0.55,
-                ease: 'easeInOut',
-              }}
+              transition={{ duration: 3.2 + i * 0.35, repeat: Infinity, delay: i * 0.55, ease: 'easeInOut' }}
             />
           ))}
         </div>
@@ -81,7 +75,6 @@ export default function WeeklyPromos() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Floating icon */}
           <motion.div
             animate={{ y: [0, -7, 0] }}
             transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
@@ -91,22 +84,19 @@ export default function WeeklyPromos() {
             {cfg.icon}
           </motion.div>
 
-          {/* Tag */}
           <div className="flex items-center justify-center gap-2 mb-4">
             <Sparkles className="w-3 h-3 text-gold-400" />
             <p style={{ fontSize: 10, letterSpacing: '0.4em', textTransform: 'uppercase' }}
               className="text-gold-400 font-sans">
-              Sélection de la semaine
+              {t.home.weeklyTag}
             </p>
             <Sparkles className="w-3 h-3 text-gold-400" />
           </div>
 
-          {/* Title */}
           <h2 className="font-serif text-3xl md:text-4xl text-white mb-4">
             {cfg.title}
           </h2>
 
-          {/* Gold divider */}
           <motion.div
             className="h-px bg-gold-500 mx-auto my-4"
             initial={{ width: 0 }}
@@ -115,13 +105,11 @@ export default function WeeklyPromos() {
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           />
 
-          {/* Subtitle */}
           <p className="text-cream-300/65 font-sans font-light max-w-md mx-auto mb-8 leading-relaxed"
             style={{ fontSize: 13 }}>
             {cfg.subtitle}
           </p>
 
-          {/* CTA */}
           <Link
             href={cfg.category ? `/shop?category=${cfg.category}` : '/shop'}
             className="inline-flex items-center gap-3 text-gold-400
@@ -135,7 +123,7 @@ export default function WeeklyPromos() {
               fontFamily: 'var(--font-inter, sans-serif)',
             }}
           >
-            {cfg.category ? 'Voir la sélection' : 'Voir toute la boutique'}
+            {cfg.category ? t.home.weeklyViewSelection : t.home.weeklyViewAll}
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </motion.div>

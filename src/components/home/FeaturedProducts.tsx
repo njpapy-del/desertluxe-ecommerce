@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
+import { useLocaleStore } from '@/store/localeStore'
 import type { Product } from '@/types'
 
 interface FeaturedProductsProps {
@@ -15,6 +16,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const headerY = useTransform(scrollYProgress, [0, 0.5], [20, 0])
+  const { t } = useLocaleStore()
 
   return (
     <section ref={ref} className="py-20 bg-white">
@@ -31,8 +33,8 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="section-tag mb-3">Sélection</p>
-            <h2 className="section-title">Pièces Phares</h2>
+            <p className="section-tag mb-3">{t.home.featuredTag}</p>
+            <h2 className="section-title">{t.home.featuredTitle}</h2>
             <motion.div
               className="h-px bg-gold-500 mt-4"
               initial={{ width: 0 }}
@@ -53,7 +55,7 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
               className="group flex items-center gap-2 text-xs tracking-widest uppercase
                          font-sans text-luxury-dark hover:text-gold-500 transition-colors"
             >
-              Voir tout
+              {t.home.viewAll}
               <motion.span
                 animate={{ x: [0, 4, 0] }}
                 transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}

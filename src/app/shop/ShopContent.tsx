@@ -6,18 +6,21 @@ import { motion } from 'framer-motion'
 import { SlidersHorizontal, Grid2x2, Grid3x3, X } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import { MOCK_PRODUCTS, MOCK_CATEGORIES } from '@/lib/mockData'
-
-const SORT_OPTIONS = [
-  { value: 'newest',    label: 'Nouveautés' },
-  { value: 'price_asc', label: 'Prix croissant' },
-  { value: 'price_desc', label: 'Prix décroissant' },
-  { value: 'popular',  label: 'Popularité' },
-]
+import { useLocaleStore } from '@/store/localeStore'
 
 export default function ShopContent() {
   const params   = useSearchParams()
   const catSlug  = params.get('category') || ''
   const search   = params.get('search')   || ''
+  const { t }    = useLocaleStore()
+  const s        = t.shop
+
+  const SORT_OPTIONS = [
+    { value: 'newest',     label: s.sortNewest   },
+    { value: 'price_asc',  label: s.sortPriceAsc  },
+    { value: 'price_desc', label: s.sortPriceDesc },
+    { value: 'popular',    label: s.sortPopular   },
+  ]
 
   const [sort, setSort]           = useState('newest')
   const [minP, setMinP]           = useState('')
@@ -57,7 +60,7 @@ export default function ShopContent() {
           MY LUXURY
         </p>
         <h1 className="font-serif text-4xl text-white mb-2">
-          {selectedCategory?.name || 'Boutique'}
+          {selectedCategory?.name || s.pageTitle}
         </h1>
         <div className="w-12 h-px bg-gold-500 mx-auto mt-4" />
       </div>
@@ -72,7 +75,7 @@ export default function ShopContent() {
               <div>
                 <h3 className="text-xs tracking-[0.25em] uppercase font-sans font-medium
                                text-luxury-dark mb-4">
-                  Catégories
+                  {s.categories}
                 </h3>
                 <ul className="space-y-2">
                   <li>
@@ -82,7 +85,7 @@ export default function ShopContent() {
                         !activeCat ? 'text-gold-500 font-medium' : 'text-luxury-gray hover:text-gold-500'
                       }`}
                     >
-                      Tout voir ({MOCK_PRODUCTS.length})
+                      {s.viewAll} ({MOCK_PRODUCTS.length})
                     </button>
                   </li>
                   {MOCK_CATEGORIES.map((cat) => (
@@ -106,7 +109,7 @@ export default function ShopContent() {
               <div>
                 <h3 className="text-xs tracking-[0.25em] uppercase font-sans font-medium
                                text-luxury-dark mb-4">
-                  Prix (€)
+                  {s.price} (€)
                 </h3>
                 <div className="flex gap-2 items-center">
                   <input
@@ -136,9 +139,9 @@ export default function ShopContent() {
             {/* Toolbar */}
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-cream-300">
               <p className="text-sm text-luxury-gray font-sans">
-                <span className="font-medium text-luxury-dark">{filtered.length}</span> produits
+                <span className="font-medium text-luxury-dark">{filtered.length}</span> {s.products}
                 {search && (
-                  <span> pour «<em>{search}</em>»</span>
+                  <span> {s.searchFor} «<em>{search}</em>»</span>
                 )}
               </p>
               <div className="flex items-center gap-4">
@@ -169,7 +172,7 @@ export default function ShopContent() {
                              border-cream-400 px-3 py-2"
                 >
                   <SlidersHorizontal className="w-3.5 h-3.5" />
-                  Filtres
+                  {s.filters}
                 </button>
               </div>
             </div>
@@ -222,11 +225,11 @@ export default function ShopContent() {
               </div>
             ) : (
               <div className="text-center py-20">
-                <p className="font-serif text-xl text-luxury-dark mb-2">Aucun produit trouvé</p>
+                <p className="font-serif text-xl text-luxury-dark mb-2">{s.noProducts}</p>
                 <p className="text-sm text-luxury-gray font-sans">
-                  Essayez d&apos;autres filtres ou{' '}
+                  {s.noProductsHint}{' '}
                   <button onClick={() => { setActiveCat(''); setMinP(''); setMaxP('') }} className="text-gold-500 underline">
-                    réinitialisez
+                    {s.reset}
                   </button>
                 </p>
               </div>

@@ -52,6 +52,40 @@ export interface Translations {
     subtitle: string
     explore:  string
     pieces:   string
+    tag:      string
+    discover: string
+    view:     string
+    viewAll:  string
+    prev:     string
+    next:     string
+  }
+  newsletter: {
+    tag:          string
+    title:        string
+    subtitle:     string
+    placeholder:  string
+    submit:       string
+    sending:      string
+    success:      string
+    privacy:      string
+    toastSuccess: string
+    toastError:   string
+  }
+  shop: {
+    pageTitle:      string
+    categories:     string
+    price:          string
+    products:       string
+    filters:        string
+    viewAll:        string
+    noProducts:     string
+    noProductsHint: string
+    reset:          string
+    sortNewest:     string
+    sortPriceAsc:   string
+    sortPriceDesc:  string
+    sortPopular:    string
+    searchFor:      string
   }
   home: {
     heroTitle:         string
@@ -89,6 +123,47 @@ export interface Translations {
     dressTunisCollection: string
     dressOriental:        string
     dressDiscover:        string
+    // Hero extras
+    heroBadge:       string
+    heroScroll:      string
+    heroStat1:       string
+    heroStat2:       string
+    heroStat3:       string
+    heroNewArrivals: string
+    // Featured section
+    featuredTag: string
+    // Weekly promos
+    weeklyTag:           string
+    weeklyViewSelection: string
+    weeklyViewAll:       string
+    // Flash sale
+    flashTitle:    string
+    flashSubtitle: string
+    flashCta:      string
+    flashDays:     string
+    flashHours:    string
+    flashMin:      string
+    flashSec:      string
+    // Hair oil section
+    hairOilTag:            string
+    hairOilTitle:          string
+    hairOilTitleGold:      string
+    hairOilSubtitle:       string
+    hairOilBotanicalTag:   string
+    hairOilPlantsTitle:    string
+    hairOilPlantsSubtitle: string
+    hairOilIndiaLabel:     string
+    hairOilTotalLabel:     string
+    hairOilIndiaBandTitle: string
+    hairOilIndiaBandText:  string
+    hairOilSourcesLabel:   string
+    hairOilCta:            string
+    hairOilBadge1:         string
+    hairOilBadge2:         string
+    hairOilBadge3:         string
+    hairOilBadge4:         string
+    hairOilBadge5:         string
+    hairOilBadge6:         string
   }
   about: {
     heroBadge:     string
@@ -141,6 +216,19 @@ export interface Translations {
     whatsappCta:         string
     privacy:             string
     terms:               string
+    boutiqueTitle:       string
+    informationsTitle:   string
+    contactTitle:        string
+    orderWhatsapp:       string
+    founder:             string
+    guarantee1Title:     string
+    guarantee1Desc:      string
+    guarantee2Title:     string
+    guarantee2Desc:      string
+    guarantee3Title:     string
+    guarantee3Desc:      string
+    guarantee4Title:     string
+    guarantee4Desc:      string
   }
   currency: {
     label: string

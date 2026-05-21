@@ -4,11 +4,14 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Check } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { useLocaleStore } from '@/store/localeStore'
 
 export default function Newsletter() {
-  const [email, setEmail]       = useState('')
-  const [loading, setLoading]   = useState(false)
+  const [email, setEmail]         = useState('')
+  const [loading, setLoading]     = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const { t } = useLocaleStore()
+  const n = t.newsletter
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,9 +24,9 @@ export default function Newsletter() {
         body: JSON.stringify({ email }),
       })
       setSubmitted(true)
-      toast.success('Bienvenue dans la famille MY LUXURY!')
+      toast.success(n.toastSuccess)
     } catch {
-      toast.error('Erreur, veuillez réessayer.')
+      toast.error(n.toastError)
     } finally {
       setLoading(false)
     }
@@ -50,13 +53,12 @@ export default function Newsletter() {
                           mb-8 mx-auto">
             <Mail className="w-5 h-5 text-gold-500" />
           </div>
-          <p className="section-tag text-gold-500 mb-4">Newsletter</p>
+          <p className="section-tag text-gold-500 mb-4">{n.tag}</p>
           <h2 className="font-serif text-3xl md:text-4xl text-white mb-4">
-            Accès Exclusif
+            {n.title}
           </h2>
           <p className="text-cream-400 font-sans text-sm leading-relaxed mb-10 max-w-md mx-auto">
-            Recevez les nouvelles collections en avant-première, les offres privées
-            et les inspirations luxe directement depuis Dubaï.
+            {n.subtitle}
           </p>
 
           {!submitted ? (
@@ -65,7 +67,7 @@ export default function Newsletter() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="votre@email.com"
+                placeholder={n.placeholder}
                 required
                 className="flex-1 px-5 py-3.5 bg-white/10 border border-white/20 text-white
                            placeholder:text-cream-500 text-sm font-sans
@@ -79,7 +81,7 @@ export default function Newsletter() {
                            font-sans font-medium hover:bg-gold-600 transition-colors
                            disabled:opacity-60 whitespace-nowrap"
               >
-                {loading ? 'Envoi...' : "S'inscrire"}
+                {loading ? n.sending : n.submit}
               </button>
             </form>
           ) : (
@@ -91,13 +93,12 @@ export default function Newsletter() {
               <div className="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center">
                 <Check className="w-4 h-4 text-white" />
               </div>
-              <span className="text-sm">Merci ! Vous êtes dans la liste exclusive.</span>
+              <span className="text-sm">{n.success}</span>
             </motion.div>
           )}
 
           <p className="mt-5 text-[11px] text-cream-500 font-sans tracking-wide">
-            En vous inscrivant, vous acceptez notre politique de confidentialité.
-            Désabonnement en un clic.
+            {n.privacy}
           </p>
         </motion.div>
       </div>

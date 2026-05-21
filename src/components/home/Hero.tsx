@@ -13,6 +13,7 @@ import {
 
 import { ArrowRight, Sparkles } from 'lucide-react'
 import Fireworks from '@/components/ui/Fireworks'
+import { useLocaleStore } from '@/store/localeStore'
 
 // ─── Word-split animation ─────────────────────────────────────────────────────
 const TITLE_LINES = ['Luxury Fashion', 'Inspired by', 'Dubai']
@@ -123,6 +124,7 @@ const BG_IMAGES = [
 export default function Hero() {
   const containerRef               = useRef<HTMLDivElement>(null)
   const { scrollY }                = useScroll()
+  const { t }                      = useLocaleStore()
 
   // Alternance des images toutes les 5 secondes
   const [imgIndex, setImgIndex]    = useState(0)
@@ -224,7 +226,7 @@ export default function Hero() {
             />
             <Sparkles className="w-3 h-3 text-gold-400" />
             <span className="text-gold-400 text-[11px] tracking-[0.4em] uppercase font-sans">
-              Nouvelle Collection 2026
+              {t.home.heroBadge}
             </span>
           </motion.div>
 
@@ -241,8 +243,7 @@ export default function Hero() {
             className="text-cream-300 text-base font-sans font-light tracking-wide
                        leading-relaxed max-w-lg mb-10"
           >
-            Des pièces d&apos;exception façonnées pour la femme moderne.
-            Sacs à main, accessoires et articles de luxe aux influences orientales.
+            {t.home.heroSubtitle}
           </motion.p>
 
           {/* CTAs */}
@@ -264,7 +265,7 @@ export default function Hero() {
                            px-8 py-4 text-xs tracking-[0.25em] uppercase font-sans font-medium
                            hover:border-white hover:bg-white/10 transition-all duration-300"
               >
-                Nouveautés
+                {t.nav.newArrivals}
               </Link>
             </motion.div>
           </motion.div>
@@ -276,11 +277,11 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 1.1 }}
             className="mt-16 flex items-center gap-10"
           >
-            <FloatingStat value="500+" label="Pièces uniques" delay={1.1} />
+            <FloatingStat value="500+" label={t.home.heroStat1} delay={1.1} />
             <div className="w-px h-8 bg-white/20" />
-            <FloatingStat value="4.9★" label="Note clients"   delay={1.2} />
+            <FloatingStat value="4.9★" label={t.home.heroStat2} delay={1.2} />
             <div className="w-px h-8 bg-white/20" />
-            <FloatingStat value="50+"  label="Pays livrés"    delay={1.3} />
+            <FloatingStat value="50+"  label={t.home.heroStat3} delay={1.3} />
           </motion.div>
         </div>
       </motion.div>
@@ -293,7 +294,7 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="text-[9px] text-white/50 tracking-[0.4em] uppercase font-sans">
-          Découvrir
+          {t.home.heroScroll}
         </span>
         <motion.div
           className="w-px bg-gradient-to-b from-white/60 to-transparent"

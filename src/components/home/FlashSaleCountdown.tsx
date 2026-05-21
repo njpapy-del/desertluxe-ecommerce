@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useLocaleStore } from '@/store/localeStore'
 
 type TimeLeft = { d: string; h: string; m: string; s: string }
 
@@ -56,6 +57,7 @@ function CountUnit({ value, label }: { value: string; label: string }) {
 
 export default function FlashSaleCountdown() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null)
+  const { t } = useLocaleStore()
 
   useEffect(() => {
     const target = getEndOfWeek()
@@ -110,22 +112,22 @@ export default function FlashSaleCountdown() {
 
           <h2 className="font-serif text-white mb-2 leading-tight"
             style={{ fontSize: 'clamp(1.6rem, 4vw, 2.5rem)' }}>
-            Offres de la semaine
+            {t.home.flashTitle}
           </h2>
           <p className="text-cream-300/55 font-sans font-light mb-8 tracking-wide"
             style={{ fontSize: 13 }}>
-            Collection Dubai disponible jusqu&apos;à dimanche minuit
+            {t.home.flashSubtitle}
           </p>
 
           {/* Countdown */}
           <div className="flex items-center justify-center gap-3 md:gap-5 mb-8">
-            <CountUnit value={timeLeft.d} label="Jours" />
+            <CountUnit value={timeLeft.d} label={t.home.flashDays} />
             <span className="text-gold-500 font-serif pb-6" style={{ fontSize: '1.5rem' }}>:</span>
-            <CountUnit value={timeLeft.h} label="Heures" />
+            <CountUnit value={timeLeft.h} label={t.home.flashHours} />
             <span className="text-gold-500 font-serif pb-6" style={{ fontSize: '1.5rem' }}>:</span>
-            <CountUnit value={timeLeft.m} label="Min" />
+            <CountUnit value={timeLeft.m} label={t.home.flashMin} />
             <span className="text-gold-500 font-serif pb-6" style={{ fontSize: '1.5rem' }}>:</span>
-            <CountUnit value={timeLeft.s} label="Sec" />
+            <CountUnit value={timeLeft.s} label={t.home.flashSec} />
           </div>
 
           {/* CTA */}
@@ -142,7 +144,7 @@ export default function FlashSaleCountdown() {
               fontWeight: 500,
             }}
           >
-            Profiter des offres
+            {t.home.flashCta}
           </Link>
         </motion.div>
       </div>

@@ -1,8 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import { MessageCircle, Mail, MapPin } from 'lucide-react'
 import EyeOfRa from '@/components/ui/EyeOfRa'
+import { useLocaleStore } from '@/store/localeStore'
 
-// ── Social SVG icons (lucide deprecated social icons → inline SVG) ───────────
 const SocialIcons = {
   Instagram: () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
@@ -32,6 +34,16 @@ const SocialIcons = {
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904'
 
 export default function Footer() {
+  const { t } = useLocaleStore()
+  const f = t.footer
+
+  const guarantees = [
+    { icon: '🚚', title: f.guarantee1Title, desc: f.guarantee1Desc },
+    { icon: '🇹🇳', title: f.guarantee2Title, desc: f.guarantee2Desc },
+    { icon: '🔒', title: f.guarantee3Title, desc: f.guarantee3Desc },
+    { icon: '↩️', title: f.guarantee4Title, desc: f.guarantee4Desc },
+  ]
+
   return (
     <footer className="bg-luxury-dark text-cream-300">
 
@@ -39,12 +51,7 @@ export default function Footer() {
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12
                         grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-          {[
-            { icon: '🚚', title: 'Livraison Express',   desc: '24-48h Dubaï · 3-5j Tunisie · International' },
-            { icon: '🇹🇳', title: 'Livraison en Tunisie', desc: 'Tunis, Sfax, Sousse, Nabeul et partout en Tunisie' },
-            { icon: '🔒', title: 'Paiement Sécurisé',  desc: 'Stripe · PayPal · 3D Secure'                  },
-            { icon: '↩️', title: 'Retours Gratuits',   desc: '30 jours sans condition'                       },
-          ].map((item) => (
+          {guarantees.map((item) => (
             <div key={item.title} className="flex flex-col items-center gap-3">
               <span className="text-3xl">{item.icon}</span>
               <h4 className="font-serif text-base text-white">{item.title}</h4>
@@ -63,20 +70,16 @@ export default function Footer() {
             <span className="font-serif text-2xl tracking-[0.15em] text-white">
               <span className="inline-flex items-center gap-2">
                 <EyeOfRa className="w-6 h-4 text-gold-500 opacity-90" />
-                MA <span className="text-gold-500">LUXURY</span>
+                MY <span className="text-gold-500">LUXURY</span>
               </span>
             </span>
-            {/* Founder signature */}
             <div className="mt-3 mb-4 pb-4 border-b border-white/10">
-              <p className="text-[10px] text-gold-500 tracking-[0.2em] uppercase font-sans">Fondatrice</p>
+              <p className="text-[10px] text-gold-500 tracking-[0.2em] uppercase font-sans">{f.founder}</p>
               <p className="font-serif text-sm text-white italic mt-0.5">Madame Rebbai Afef</p>
             </div>
             <p className="text-xs text-cream-400 font-sans leading-relaxed tracking-wide">
-              Mode luxe inspirée de l&apos;élégance de Dubaï.
-              Sacs à main, accessoires et pièces d&apos;exception
-              pour la femme moderne — livrés en Tunisie &amp; dans le monde entier.
+              {f.tagline}
             </p>
-            {/* Social icons */}
             <div className="mt-6 flex gap-3">
               {[
                 { Icon: SocialIcons.Instagram, href: '#', label: 'Instagram' },
@@ -100,15 +103,14 @@ export default function Footer() {
           {/* Navigation */}
           <div>
             <h5 className="text-white text-xs tracking-[0.25em] uppercase font-sans font-medium mb-6">
-              Boutique
+              {f.boutiqueTitle}
             </h5>
             <ul className="space-y-3">
               {[
-                { label: 'Sacs à Main',   href: '/shop?category=sacs-a-main'  },
-                { label: 'Accessoires',   href: '/shop?category=accessoires'  },
-                { label: 'Nouveautés',    href: '/shop?category=nouveautes'   },
-                { label: 'Best Sellers',  href: '/shop?category=best-sellers' },
-                { label: 'Promotions',    href: '/shop?sort=price_asc'        },
+                { label: t.nav.bags,        href: '/shop?category=sacs-a-main'  },
+                { label: t.nav.accessories, href: '/shop?category=accessoires'  },
+                { label: t.nav.newArrivals, href: '/shop?category=nouveautes'   },
+                { label: t.home.bestSellers,href: '/shop?category=best-sellers' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -125,16 +127,13 @@ export default function Footer() {
           {/* Informations */}
           <div>
             <h5 className="text-white text-xs tracking-[0.25em] uppercase font-sans font-medium mb-6">
-              Informations
+              {f.informationsTitle}
             </h5>
             <ul className="space-y-3">
               {[
-                { label: 'À propos',         href: '/about'    },
-                { label: 'Livraison Tunisie',href: '/shipping' },
-                { label: 'Livraison Dubai',  href: '/shipping' },
-                { label: 'Retours',          href: '/returns'  },
-                { label: 'FAQ',              href: '/faq'      },
-                { label: 'Confidentialité',  href: '/privacy'  },
+                { label: t.nav.about, href: '/about'    },
+                { label: f.privacy,   href: '/privacy'  },
+                { label: f.terms,     href: '/terms'    },
               ].map((link) => (
                 <li key={link.label}>
                   <Link
@@ -151,20 +150,20 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h5 className="text-white text-xs tracking-[0.25em] uppercase font-sans font-medium mb-6">
-              Contact
+              {f.contactTitle}
             </h5>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-gold-500 mt-0.5 shrink-0" />
                 <span className="text-xs text-cream-400 font-sans leading-relaxed">
                   Dubai Design District (D3)<br />
-                  Dubaï, Émirats Arabes Unis
+                  Dubai, UAE
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-gold-400 mt-0.5 shrink-0" />
                 <span className="text-xs text-cream-400 font-sans leading-relaxed">
-                  Tunisie — livraison nationale<br />
+                  Tunisia — {f.guarantee2Title}<br />
                   Tunis · Sfax · Sousse · Nabeul
                 </span>
               </li>
@@ -179,9 +178,8 @@ export default function Footer() {
               </li>
             </ul>
 
-            {/* WhatsApp CTA */}
             <a
-              href={`https://wa.me/${WHATSAPP.replace(/\D/g, '')}?text=Bonjour%2C%20je%20veux%20commander%20un%20sac%20sur%20MA%20LUXURY%20%F0%9F%91%9C`}
+              href={`https://wa.me/${WHATSAPP.replace(/\D/g, '')}?text=${encodeURIComponent('MY LUXURY 👜')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 flex items-center gap-2 bg-[#25D366] text-white px-4 py-2.5
@@ -189,7 +187,7 @@ export default function Footer() {
                          hover:bg-[#1EBE5D] transition-colors"
             >
               <MessageCircle className="w-4 h-4" />
-              Commander sur WhatsApp
+              {f.orderWhatsapp}
             </a>
           </div>
         </div>
@@ -200,7 +198,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5
                         flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-cream-500 font-sans">
-            © {new Date().getFullYear()} MY LUXURY — Fondée par Madame Rebbai Afef. Tous droits réservés.
+            {f.rights}
           </p>
           <div className="flex items-center gap-3">
             {['VISA', 'MC', 'AMEX', 'PayPal', 'Apple Pay'].map((pm) => (
