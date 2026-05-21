@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { Sparkles, MapPin, ShieldCheck, Star, Package, HeartHandshake } from 'lucide-react'
 import EyeOfRa from '@/components/ui/EyeOfRa'
+import { useLocaleStore } from '@/store/localeStore'
 
 /* ─── Animation variants ─────────────────────────────────────────────── */
 const fadeUp = {
@@ -37,49 +38,27 @@ function Section({
   )
 }
 
-/* ─── Data ───────────────────────────────────────────────────────────── */
-const ENGAGEMENTS = [
-  {
-    icon: ShieldCheck,
-    title: 'Authenticité garantie',
-    text: "Chaque pièce est inspectée manuellement par notre équipe avant expédition. Matières, coutures, fermoirs — rien n'échappe à notre contrôle qualité.",
-  },
-  {
-    icon: MapPin,
-    title: 'Sourcing direct Dubaï',
-    text: "Nos acheteurs se rendent régulièrement dans les showrooms premium de Dubaï pour négocier directement les meilleures pièces de la saison.",
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Service personnalisé',
-    text: "Notre équipe vous accompagne de la sélection jusqu'à la livraison. Besoin d'un conseil ? Nous sommes disponibles 7j/7 par message.",
-  },
-  {
-    icon: Package,
-    title: 'Livraison sécurisée',
-    text: 'Emballage luxueux, suivi en temps réel, livraison partout en Tunisie sous 24 à 48 heures ouvrées.',
-  },
-  {
-    icon: Star,
-    title: 'Sélection premium',
-    text: "Moins de 20 % des modèles inspectés à Dubaï rejoignent notre catalogue. Seul le meilleur passe notre sélection.",
-  },
-  {
-    icon: Sparkles,
-    title: 'Luxe accessible',
-    text: "En sourçant directement sans intermédiaire, nous vous offrons des prix justes pour une qualité qui ne fait aucun compromis.",
-  },
-]
-
-const STATS = [
-  { value: 'Dubaï', label: 'Sourcing exclusif' },
-  { value: '100 %', label: 'Contrôle qualité manuel' },
-  { value: '48 h', label: 'Livraison max Tunisie' },
-  { value: '7/7', label: 'Support client' },
-]
-
 /* ─── Component ──────────────────────────────────────────────────────── */
 export default function AboutContent() {
+  const { t } = useLocaleStore()
+  const a = t.about
+
+  const engagements = [
+    { icon: ShieldCheck,    title: a.eng1Title, text: a.eng1Text },
+    { icon: MapPin,         title: a.eng2Title, text: a.eng2Text },
+    { icon: HeartHandshake, title: a.eng3Title, text: a.eng3Text },
+    { icon: Package,        title: a.eng4Title, text: a.eng4Text },
+    { icon: Star,           title: a.eng5Title, text: a.eng5Text },
+    { icon: Sparkles,       title: a.eng6Title, text: a.eng6Text },
+  ]
+
+  const stats = [
+    { value: 'Dubai', label: a.statsLabel1 },
+    { value: '100 %', label: a.statsLabel2 },
+    { value: '48 h',  label: a.statsLabel3 },
+    { value: '7/7',   label: a.statsLabel4 },
+  ]
+
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
 
@@ -96,7 +75,7 @@ export default function AboutContent() {
           custom={0}
           className="text-xs uppercase tracking-[0.4em] text-gold-500 font-sans mb-5"
         >
-          Notre histoire
+          {a.heroBadge}
         </motion.p>
 
         <motion.h1
@@ -106,10 +85,9 @@ export default function AboutContent() {
           custom={1}
           className="font-serif text-4xl md:text-6xl font-light mb-6 tracking-wide"
         >
-          L&apos;univers{' '}
           <span className="inline-flex items-center gap-3">
             <EyeOfRa className="w-8 h-6 text-gold-500" />
-            MA <span className="text-gold-500">LUXURY</span>
+            {a.heroTitle}
           </span>
         </motion.h1>
 
@@ -118,10 +96,9 @@ export default function AboutContent() {
           initial="hidden"
           animate="visible"
           custom={2}
-          className="text-cream-300 text-base md:text-lg max-w-xl mx-auto font-sans font-light leading-relaxed"
+          className="text-cream-300 text-base md:text-lg max-w-xl mx-auto font-sans font-light leading-relaxed whitespace-pre-line"
         >
-          La maison tunisienne du luxe authentique,<br />
-          directement importé des showrooms de Dubaï.
+          {a.heroSubtitle}
         </motion.p>
 
         <motion.div
@@ -131,7 +108,7 @@ export default function AboutContent() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <span className="text-[10px] tracking-[0.3em] uppercase text-cream-400 font-sans">
-            Découvrir
+            {a.heroScroll}
           </span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
@@ -150,14 +127,14 @@ export default function AboutContent() {
               custom={0}
               className="text-xs uppercase tracking-[0.3em] text-gold-500 font-sans mb-4"
             >
-              Nos origines
+              {a.originsTag}
             </motion.p>
             <motion.h2
               variants={fadeUp}
               custom={1}
               className="font-serif text-3xl md:text-4xl text-luxury-dark font-light mb-8 leading-snug"
             >
-              Née d&apos;une passion pour l&apos;élégance
+              {a.originsTitle}
             </motion.h2>
             <motion.div
               variants={fadeUp}
@@ -165,23 +142,11 @@ export default function AboutContent() {
               className="space-y-5 text-luxury-light leading-relaxed font-sans text-sm md:text-base"
             >
               <p>
-                <strong className="text-luxury-dark font-medium">MY LUXURY</strong> est
-                née d&apos;un constat simple : les femmes tunisiennes méritent d&apos;accéder
-                aux plus belles créations de la mode mondiale, sans compromis sur la qualité
-                ni sur le prix.
+                <strong className="text-luxury-dark font-medium">MY LUXURY</strong>{' '}
+                {a.originsP1}
               </p>
-              <p>
-                Fondée par une équipe passionnée de mode et de voyage, notre maison
-                s&apos;approvisionne directement dans les showrooms premium de{' '}
-                <strong className="text-luxury-dark font-medium">Dubaï</strong> — capitale
-                mondiale du luxe — pour vous proposer une sélection rigoureusement choisie
-                de sacs, pochettes et accessoires d&apos;exception.
-              </p>
-              <p>
-                Chaque pièce est sélectionnée à la main par nos acheteurs, qui contrôlent
-                personnellement la qualité des matières, la finition des coutures et la
-                robustesse des fermetures avant tout import vers la Tunisie.
-              </p>
+              <p>{a.originsP2}</p>
+              <p>{a.originsP3}</p>
             </motion.div>
           </div>
 
@@ -191,7 +156,7 @@ export default function AboutContent() {
             className="bg-cream-100 border border-cream-300 p-10"
           >
             <div className="grid grid-cols-2 gap-px bg-cream-300">
-              {STATS.map((s) => (
+              {stats.map((s) => (
                 <div
                   key={s.label}
                   className="bg-cream-100 p-8 text-center flex flex-col gap-2"
@@ -207,7 +172,7 @@ export default function AboutContent() {
             </div>
             <div className="mt-8 pt-8 border-t border-cream-300 text-center">
               <p className="text-xs uppercase tracking-[0.25em] text-luxury-light font-sans mb-1">
-                Marque fondée en
+                {a.statsFounded}
               </p>
               <p className="font-serif text-4xl text-luxury-dark">2022</p>
             </div>
@@ -230,18 +195,18 @@ export default function AboutContent() {
             custom={0}
             className="text-xs uppercase tracking-[0.3em] text-gold-500 font-sans text-center mb-4"
           >
-            Ce qui nous définit
+            {a.engTag}
           </motion.p>
           <motion.h2
             variants={fadeUp}
             custom={1}
             className="font-serif text-3xl md:text-4xl text-luxury-dark font-light text-center mb-16"
           >
-            Nos engagements
+            {a.engTitle}
           </motion.h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ENGAGEMENTS.map((item, i) => {
+            {engagements.map((item, i) => {
               const Icon = item.icon
               return (
                 <motion.div
@@ -264,21 +229,21 @@ export default function AboutContent() {
         </div>
       </Section>
 
-      {/* ── Pourquoi nous ────────────────────────────────────────────── */}
+      {/* ── Vision ───────────────────────────────────────────────────── */}
       <Section className="max-w-4xl mx-auto px-6 py-24">
         <motion.p
           variants={fadeUp}
           custom={0}
           className="text-xs uppercase tracking-[0.3em] text-gold-500 font-sans text-center mb-4"
         >
-          Notre vision
+          {a.visionTag}
         </motion.p>
         <motion.h2
           variants={fadeUp}
           custom={1}
           className="font-serif text-3xl md:text-4xl text-luxury-dark font-light text-center mb-12"
         >
-          Pourquoi choisir MY LUXURY ?
+          {a.visionTitle}
         </motion.h2>
         <motion.div
           variants={fadeUp}
@@ -286,27 +251,14 @@ export default function AboutContent() {
           className="space-y-6 text-luxury-light leading-relaxed font-sans text-sm md:text-base text-center max-w-3xl mx-auto"
         >
           <p>
-            Dans un marché saturé de contrefaçons et de produits de mauvaise qualité,
-            <strong className="text-luxury-dark font-medium"> MY LUXURY</strong> s&apos;est
-            imposée comme la référence fiable pour toutes les femmes tunisiennes qui souhaitent
-            investir dans un accessoire de mode qui dure.
+            {a.visionP1.split('MY LUXURY').map((part, i, arr) =>
+              i < arr.length - 1
+                ? <span key={i}>{part}<strong className="text-luxury-dark font-medium">MY LUXURY</strong></span>
+                : <span key={i}>{part}</span>
+            )}
           </p>
-          <p>
-            Nous croyons que le luxe n&apos;est pas réservé à une élite. Notre mission est
-            de démocratiser l&apos;accès aux plus belles pièces de maroquinerie en maintenant
-            des standards irréprochables, à des prix accessibles grâce à notre{' '}
-            <strong className="text-luxury-dark font-medium">sourcing direct à Dubaï</strong>.
-          </p>
-          <p>
-            Que vous cherchiez un{' '}
-            <strong className="text-luxury-dark font-medium">sac cabas pour le bureau</strong>,
-            une{' '}
-            <strong className="text-luxury-dark font-medium">pochette de soirée élégante</strong>{' '}
-            ou un{' '}
-            <strong className="text-luxury-dark font-medium">sac à main polyvalent</strong>,
-            notre collection renouvelée chaque saison vous offre le choix parfait — livraison
-            rapide partout en Tunisie.
-          </p>
+          <p>{a.visionP2}</p>
+          <p>{a.visionP3}</p>
         </motion.div>
       </Section>
 
@@ -325,15 +277,14 @@ export default function AboutContent() {
             custom={1}
             className="font-serif text-3xl md:text-4xl font-light mb-6"
           >
-            Prête à trouver votre pièce signature ?
+            {a.ctaTitle}
           </motion.h2>
           <motion.p
             variants={fadeUp}
             custom={2}
             className="text-cream-300 font-sans text-sm leading-relaxed mb-10"
           >
-            Explorez notre collection exclusive de sacs importés directement de Dubaï.
-            Livraison rapide partout en Tunisie — 24 à 48 heures.
+            {a.ctaText}
           </motion.p>
           <motion.div
             variants={fadeUp}
@@ -345,7 +296,7 @@ export default function AboutContent() {
                 href="/shop"
                 className="inline-block bg-gold-500 text-white px-10 py-4 text-xs uppercase tracking-[0.25em] font-sans font-medium hover:bg-gold-400 transition-colors duration-300"
               >
-                Voir la collection
+                {a.ctaShop}
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
@@ -353,7 +304,7 @@ export default function AboutContent() {
                 href="/"
                 className="inline-block border border-cream-300 text-cream-100 px-10 py-4 text-xs uppercase tracking-[0.25em] font-sans font-medium hover:border-gold-500 hover:text-gold-500 transition-colors duration-300"
               >
-                Retour à l&apos;accueil
+                {a.ctaHome}
               </Link>
             </motion.div>
           </motion.div>

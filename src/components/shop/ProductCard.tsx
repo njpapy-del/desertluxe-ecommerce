@@ -9,6 +9,7 @@ import { ShoppingBag, Heart, Star, Eye } from 'lucide-react'
 import { useCartStore }   from '@/store/cartStore'
 import { useLocaleStore } from '@/store/localeStore'
 import { fmtPrice }       from '@/lib/priceUtils'
+import { localizeProduct, localizeCategory } from '@/locales/products'
 import type { Product }   from '@/types'
 
 interface ProductCardProps {
@@ -37,7 +38,7 @@ function ShineEffect({ active }: { active: boolean }) {
   )
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product: productProp }: ProductCardProps) {
   const router   = useRouter()
   const cardRef  = useRef<HTMLDivElement>(null)
 
@@ -46,8 +47,11 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [adding,   setAdding]   = useState(false)
   const [hovered,  setHovered]  = useState(false)
 
-  const { addItem }        = useCartStore()
-  const { t, currency }   = useLocaleStore()
+  const { addItem }              = useCartStore()
+  const { t, currency, locale }  = useLocaleStore()
+
+  const product  = localizeProduct(productProp, locale)
+  const category = localizeCategory(productProp.category, locale)
 
   // ── Magnetic tilt via mouse ──────────────────────────────────────────────
   const mouseX  = useMotionValue(0)
@@ -136,10 +140,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-20 pointer-events-none">
           {discount > 0 && <span className="badge-sale">-{discount}%</span>}
-          {product.tags.includes('nouveau') && <span className="badge-new">Nouveau</span>}
+          {product.tags.includes('nouveau') && <span className="badge-new">{t.product.newBadge}</span>}
           {product.stock <= 3 && product.stock > 0 && (
             <span className="bg-amber-500 text-white text-[10px] tracking-widest uppercase px-2 py-0.5 font-sans">
-              Stock limité
+              {t.product.limitedStock}
             </span>
           )}
         </div>
@@ -156,7 +160,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             whileTap={{ scale: 0.9 }}
             onClick={handleWish}
             className="w-8 h-8 bg-white shadow-md flex items-center justify-center"
-            aria-label="Ajouter aux favoris"
+            aria-label={t.product.wishlist}
           >
             <Heart
               className={`w-3.5 h-3.5 transition-colors ${
@@ -170,7 +174,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             whileTap={{ scale: 0.9 }}
             onClick={handleQuickView}
             className="w-8 h-8 bg-white shadow-md flex items-center justify-center"
-            aria-label="Voir le produit"
+            aria-label={t.product.viewProduct}
           >
             <Eye className="w-3.5 h-3.5 text-luxury-dark" />
           </motion.button>
@@ -211,7 +215,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         onClick={() => router.push(`/product/${product.slug}`)}
       >
         <p className="text-[10px] text-gold-500 tracking-[0.2em] uppercase font-sans mb-1.5">
-          {product.category.name}
+          {category.name}
         </p>
 
         <h3 className="font-serif text-[15px] text-luxury-dark hover:text-gold-600
