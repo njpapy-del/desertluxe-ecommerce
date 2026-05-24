@@ -19,30 +19,30 @@ function buildProductContext(): string {
 }
 
 function buildSystemPrompt(): string {
-  return `Tu es Leila, la conseillère IA de MY LUXURY — boutique de mode luxe importée de Dubaï et Turquie, livraison en Tunisie.
+  return `You are Leila, the AI advisor for MY LUXURY — a luxury fashion boutique importing from Dubai and Turkey, delivering to Tunisia.
 
-Personnalité : élégante, chaleureuse, professionnelle. Experte en sacs, robes, chaussures, bijoux, huiles capillaires et parfums arabes.
-Langue : réponds toujours en français. Sois précise et concise (2-4 phrases max).
+Personality: elegant, warm, professional. Expert in bags, dresses, shoes, jewellery, hair oils, and Arabic perfumes.
+Language: reply in the same language the customer uses (English or Arabic). Be precise and concise (2-4 sentences max).
 
-FAITS STRICTS sur MY LUXURY — tu ne peux affirmer QUE ces faits :
-- Livraison UNIQUEMENT en Tunisie, délai 24-48h. Zéro livraison internationale.
-- Retours gratuits sous 30 jours
-- Paiement sécurisé en ligne ou à la livraison
-- Contact WhatsApp : ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904'}
+STRICT FACTS about MY LUXURY — only state these facts:
+- Delivery ONLY within Tunisia, 24-48h. Zero international delivery.
+- Free returns within 30 days
+- Secure payment online or cash on delivery
+- WhatsApp contact: ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904'}
 
-INTERDIT ABSOLU — ne jamais mentionner ni inventer :
-- Des réductions, promotions, codes promo, prix groupés → ils n'existent PAS
-- Des pays de livraison autres que la Tunisie → on ne livre PAS ailleurs
-- Des délais autres que 24-48h
-- Des services non listés ci-dessus (programme fidélité, partenaires, etc.)
-- Toute information absente du catalogue ou des faits ci-dessus
+STRICTLY FORBIDDEN — never mention or invent:
+- Discounts, promotions, promo codes, bundle prices → they do NOT exist
+- Delivery outside Tunisia → we do NOT ship internationally
+- Delivery times other than 24-48h
+- Services not listed above (loyalty programs, partners, etc.)
+- Any information not in the catalogue or the facts above
 
-Si une cliente demande quelque chose que tu ne sais pas ou qui n'est pas listé → réponds honnêtement "Je n'ai pas cette information" et redirige vers WhatsApp.
+If a customer asks something you don't know or that isn't listed → reply honestly "I don't have that information" and redirect to WhatsApp.
 
-Catalogue actuel :
+Current catalogue:
 ${buildProductContext()}
 
-Quand tu recommandes un produit : cite son nom exact + son prix exact du catalogue.`
+When recommending a product: quote its exact name + its exact price from the catalogue.`
 }
 
 interface Message {
@@ -124,69 +124,69 @@ function ruleBasedResponse(message: string): string {
   const q = message.toLowerCase()
 
   if (/bonjour|salut|hello|bonsoir|salam|hi\b/.test(q))
-    return 'Bonjour et bienvenue chez MY LUXURY ! Je suis Leila, votre conseillère mode. Comment puis-je vous aider aujourd\'hui ?'
+    return 'Hello and welcome to MY LUXURY! I\'m Leila, your fashion advisor. How can I help you today? ✨'
 
-  if (/livraison|délai|expédition|recevoir/.test(q))
-    return 'Livraison rapide partout en Tunisie sous 24 à 48h. Tous nos produits sont importés directement de Dubaï et Turquie. 📦'
+  if (/livraison|d[eé]lai|exp[eé]dition|recevoir|delivery|shipping/.test(q))
+    return 'Fast delivery throughout Tunisia within 24 to 48 hours. All our products are imported directly from Dubai and Turkey. 📦'
 
-  if (/retour|remboursement|échanger/.test(q))
-    return 'Retours acceptés sous 30 jours, sans condition. Contactez-nous sur WhatsApp pour initier votre retour. ✅'
+  if (/retour|remboursement|[eé]changer|return|refund/.test(q))
+    return 'Returns accepted within 30 days, no questions asked. Contact us on WhatsApp to start your return. ✅'
 
-  if (/paiement|payer|règlement/.test(q))
-    return 'Paiement sécurisé en ligne ou à la livraison. Commandes aussi via WhatsApp Business. 🔒'
+  if (/paiement|payer|r[eè]glement|payment|pay/.test(q))
+    return 'Secure payment online or cash on delivery. Orders also accepted via WhatsApp Business. 🔒'
 
   if (/sac|bag/.test(q)) {
     const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'sacs-a-main').slice(0, 2)
-    return `Nos sacs vedettes : ${items.map(p => `${p.name} à ${p.price}€`).join(' et ')}. Voir la boutique pour la collection complète !`
+    return `Our top bags: ${items.map(p => `${p.name} at ${p.price}€`).join(' and ')}. Visit the boutique for the full collection!`
   }
 
   if (/robe|dress/.test(q)) {
     const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'robes').slice(0, 2)
-    return `Robes en vedette : ${items.map(p => `${p.name} à ${p.price}€`).join(' et ')}. Parfaites pour toutes les occasions.`
+    return `Featured dresses: ${items.map(p => `${p.name} at ${p.price}€`).join(' and ')}. Perfect for every occasion.`
   }
 
-  if (/huile|cheveux|capillaire|argan|soin/.test(q)) {
+  if (/huile|cheveux|capillaire|argan|soin|hair|oil/.test(q)) {
     const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'huile-cheveux').slice(0, 2)
-    const list = items.length ? items.map(p => `${p.name} à ${p.price}€`).join(' et ') : 'notre sélection premium'
-    return `Nos huiles capillaires : ${list}. Formules enrichies en vitamines A, B5, B7, C, D et E — argan, jojoba, ricin. Soins naturels importés de Dubaï.`
+    const list = items.length ? items.map(p => `${p.name} at ${p.price}€`).join(' and ') : 'our premium selection'
+    return `Our hair oils: ${list}. Enriched with vitamins A, B5, B7, C, D & E — argan, jojoba, castor. Natural care imported from Dubai.`
   }
 
-  if (/parfum|oud|rose|ambre|musc|santal|jasmin|fragrance|ibraq|senteur/.test(q)) {
+  if (/parfum|oud|rose|ambre|musc|santal|jasmin|fragrance|ibraq|senteur|perfume/.test(q)) {
     const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'parfums').slice(0, 2)
-    const list = items.length ? items.map(p => `${p.name} à ${p.price}€`).join(' et ') : 'notre sélection Ibraq'
-    return `Nos parfums arabes 75 ml : ${list}. Collection Ibraq Perfumes — oud, rose de Taïf, ambre, musc. Sillage 10-12h, flacons de luxe. Expédié depuis Arabie Saoudite.`
+    const list = items.length ? items.map(p => `${p.name} at ${p.price}€`).join(' and ') : 'our Ibraq selection'
+    return `Our Arabic perfumes 75 ml: ${list}. Ibraq Perfumes collection — oud, Taif rose, amber, musk. 10-12h sillage, luxury bottles. Shipped from Saudi Arabia.`
   }
 
-  if (/chaussure|sandale|escarpin|bottine/.test(q)) {
+  if (/chaussure|sandale|escarpin|bottine|shoe|sandal|heel/.test(q)) {
     const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'chaussures').slice(0, 2)
-    return `Chaussures du moment : ${items.map(p => `${p.name} à ${p.price}€`).join(' et ')}. Style et confort garantis.`
+    return `Top shoes right now: ${items.map(p => `${p.name} at ${p.price}€`).join(' and ')}. Style and comfort guaranteed.`
   }
 
-  if (/bijou|collier|bracelet|\bor\b/.test(q)) {
+  if (/bijou|collier|bracelet|\bor\b|jewel|gold|necklace/.test(q)) {
     const items = MOCK_PRODUCTS.filter(p => p.category.slug === 'bijoux').slice(0, 2)
-    return `Bijoux & Or : ${items.map(p => `${p.name} à ${p.price}€`).join(' et ')}. Plaqué or 18 carats, livrés en écrin.`
+    return `Jewellery & Gold: ${items.map(p => `${p.name} at ${p.price}€`).join(' and ')}. 18-carat gold-plated, delivered in a gift box.`
   }
 
-  if (/whatsapp|contact|appel/.test(q))
-    return `Contactez-nous sur WhatsApp : ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904'}. Réponse en moins de 24h. 💬`
+  if (/whatsapp|contact|appel|call/.test(q))
+    return `Contact us on WhatsApp: ${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+971522110904'}. Response within 24 hours. 💬`
 
-  if (/prix|budget|moins cher|pas cher/.test(q)) {
+  if (/prix|budget|moins cher|pas cher|price|cheap/.test(q)) {
     const cheapest = [...MOCK_PRODUCTS].sort((a, b) => a.price - b.price)[0]
-    return `Notre pièce la plus accessible : ${cheapest.name} à seulement ${cheapest.price}€. Excellent rapport qualité-prix !`
+    return `Our most affordable piece: ${cheapest.name} at only ${cheapest.price}€. Outstanding value!`
   }
 
-  if (/réduction|reduction|promo|remise|discount|code|fidélité|fidelite|groupée|groupee|lot|pack/.test(q))
-    return `Nous ne proposons pas de promotions ni de réductions groupées pour le moment. Tous nos prix sont déjà optimisés pour le marché tunisien. Pour toute question, contactez-nous sur WhatsApp. 💬`
+  if (/r[eé]duction|promo|remise|discount|code|fid[eé]lit[eé]|group[eé]e|lot|pack/.test(q))
+    return `We do not offer promotions or bundle discounts. All our prices are already optimised for the Tunisian market. For any questions, contact us on WhatsApp. 💬`
 
-  if (/livr.*hors|livr.*france|livr.*algérie|livr.*algerie|livr.*maroc|livr.*europe|livr.*international|international.*livr|hors.*tunisie|expédition.*internationale/.test(q))
-    return `Nous livrons uniquement en Tunisie, partout sur le territoire, sous 24 à 48h. Nous n'assurons pas de livraison internationale pour le moment. 📦`
+  if (/livr.*hors|livr.*france|livr.*alg[eé]rie|livr.*maroc|livr.*europe|livr.*international|international.*livr|hors.*tunisie|exp[eé]dition.*internationale/.test(q))
+    return `We deliver only within Tunisia, nationwide, within 24 to 48 hours. We do not offer international shipping at this time. 📦`
 
-  if (/bientôt|prochainement|nouveauté.*arrive|futur/.test(q))
-    return `Je n'ai pas d'information sur les prochaines nouveautés. Suivez-nous ou contactez-nous sur WhatsApp pour rester informé. 💬`
+  if (/bient[oô]t|prochainement|nouveaut[eé].*arrive|futur|soon|upcoming/.test(q))
+    return `I don't have information on upcoming arrivals. Follow us or contact us on WhatsApp to stay informed. 💬`
 
   const picks = MOCK_PRODUCTS.filter(p => p.featured)
   const pick  = picks[Math.floor(Math.random() * picks.length)]
-  return `Je vous suggère notre **${pick.name}** à ${pick.price}€, très apprécié de nos clientes. Puis-je vous aider à trouver quelque chose de précis ?`
+  return `I'd suggest our **${pick.name}** at ${pick.price}€, very popular with our customers. Can I help you find something specific?`
 }
 
 // ── Handler principal ─────────────────────────────────────────────────────────
@@ -208,7 +208,7 @@ export async function POST(req: NextRequest) {
 
     // Règles prioritaires AVANT le LLM — évite toute hallucination sur les sujets clés
     const ruleReply = ruleBasedResponse(message)
-    const isDefinitiveRule = /bonjour|salut|hello|bonsoir|salam|\bhi\b|livraison|délai|d[eé]lai|expédition|recevoir|retour|remboursement|[eé]changer|paiement|payer|r[eè]glement|whatsapp|contact|appel|r[ée]duction|promo|remise|discount|fid[eé]lit[eé]|groupée|groupee|livr.{1,10}hors|hors.{1,10}tunisie|international|bient[oô]t|prochainement/.test(message.toLowerCase())
+    const isDefinitiveRule = /bonjour|salut|hello|bonsoir|salam|\bhi\b|livraison|d[eé]lai|exp[eé]dition|recevoir|delivery|shipping|retour|remboursement|[eé]changer|return|refund|paiement|payer|r[eè]glement|payment|\bpay\b|whatsapp|contact|appel|r[eé]duction|promo|remise|discount|fid[eé]lit[eé]|group[eé]e|livr.{1,10}hors|hors.{1,10}tunisie|international|bient[oô]t|prochainement|soon|upcoming/.test(message.toLowerCase())
 
     if (isDefinitiveRule) {
       reply  = ruleReply
@@ -247,7 +247,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Chat error:', error)
     return NextResponse.json(
-      { reply: 'Service momentanément indisponible. Contactez-nous sur WhatsApp.' },
+      { reply: 'Service temporarily unavailable. Please contact us on WhatsApp.' },
       { status: 200 }
     )
   }

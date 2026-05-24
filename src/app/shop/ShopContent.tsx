@@ -7,12 +7,14 @@ import { SlidersHorizontal, Grid2x2, Grid3x3, X } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import { MOCK_PRODUCTS, MOCK_CATEGORIES } from '@/lib/mockData'
 import { useLocaleStore } from '@/store/localeStore'
+import { localizeCategory } from '@/locales/products'
 
 export default function ShopContent() {
   const params   = useSearchParams()
   const catSlug  = params.get('category') || ''
   const search   = params.get('search')   || ''
-  const { t }    = useLocaleStore()
+  const { t, locale } = useLocaleStore()
+  const localizedCategories = MOCK_CATEGORIES.map((c) => localizeCategory(c, locale))
   const s        = t.shop
 
   const SORT_OPTIONS = [
@@ -50,7 +52,7 @@ export default function ShopContent() {
     return p
   }, [activeCat, search, sort, minP, maxP])
 
-  const selectedCategory = MOCK_CATEGORIES.find((c) => c.slug === activeCat)
+  const selectedCategory = localizedCategories.find((c) => c.slug === activeCat)
 
   return (
     <div className="min-h-screen bg-cream-100">
@@ -88,7 +90,7 @@ export default function ShopContent() {
                       {s.viewAll} ({MOCK_PRODUCTS.length})
                     </button>
                   </li>
-                  {MOCK_CATEGORIES.map((cat) => (
+                  {localizedCategories.map((cat) => (
                     <li key={cat.slug}>
                       <button
                         onClick={() => setActiveCat(cat.slug)}
