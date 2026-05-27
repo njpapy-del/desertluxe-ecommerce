@@ -27,7 +27,7 @@ async function main() {
         name: p.name, description: p.description,
         price: p.price, comparePrice: p.comparePrice,
         images: p.images, stock: p.stock,
-        tags: p.tags, featured: p.featured,
+        featured: p.featured,
         rating: p.rating, reviewCount: p.reviewCount,
       },
       create: {
@@ -35,7 +35,7 @@ async function main() {
         description: p.description, price: p.price,
         comparePrice: p.comparePrice, images: p.images,
         categoryId: p.categoryId, stock: p.stock,
-        tags: p.tags, featured: p.featured, active: p.active,
+        featured: p.featured, active: (p as any).active ?? true,
         rating: p.rating, reviewCount: p.reviewCount,
       },
     })

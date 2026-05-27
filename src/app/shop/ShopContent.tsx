@@ -6,15 +6,26 @@ import { motion } from 'framer-motion'
 import { SlidersHorizontal, Grid2x2, Grid3x3, X } from 'lucide-react'
 import ProductCard from '@/components/shop/ProductCard'
 import { MOCK_PRODUCTS, MOCK_CATEGORIES } from '@/lib/mockData'
+// fallbacks used when no DB data is passed via props
 import { useLocaleStore } from '@/store/localeStore'
 import { localizeCategory } from '@/locales/products'
+import type { Product, Category } from '@/types'
 
-export default function ShopContent() {
+interface Props {
+  initialProducts?:   Product[]
+  initialCategories?: Category[]
+}
+
+export default function ShopContent({ initialProducts, initialCategories }: Props) {
   const params   = useSearchParams()
   const catSlug  = params.get('category') || ''
   const search   = params.get('search')   || ''
   const { t, locale } = useLocaleStore()
-  const localizedCategories = MOCK_CATEGORIES.map((c) => localizeCategory(c, locale))
+
+  const allProducts   = initialProducts   ?? (MOCK_PRODUCTS   as unknown as Product[])
+  const allCategories = initialCategories ?? (MOCK_CATEGORIES as unknown as Category[])
+
+  const localizedCategories = allCategories.map((c) => localizeCategory(c, locale))
   const s        = t.shop
 
   const SORT_OPTIONS = [
@@ -32,7 +43,7 @@ export default function ShopContent() {
   const [activeCat, setActiveCat] = useState(catSlug)
 
   const filtered = useMemo(() => {
-    let p = [...MOCK_PRODUCTS]
+    let p = [...allProducts]
 
     if (activeCat) p = p.filter((x) => x.category.slug === activeCat)
     if (search)    p = p.filter((x) =>
@@ -43,14 +54,14 @@ export default function ShopContent() {
     if (maxP) p = p.filter((x) => x.price <= +maxP)
 
     switch (sort) {
-      case 'price_asc':  p.sort((a, b) => a.price - b.price);        break
-      case 'price_desc': p.sort((a, b) => b.price - a.price);        break
+      case 'price_asc':  p.sort((a, b) => a.price - b.price);            break
+      case 'price_desc': p.sort((a, b) => b.price - a.price);            break
       case 'popular':    p.sort((a, b) => b.reviewCount - a.reviewCount); break
       default:           p.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     }
 
     return p
-  }, [activeCat, search, sort, minP, maxP])
+  }, [allProducts, activeCat, search, sort, minP, maxP])
 
   const selectedCategory = localizedCategories.find((c) => c.slug === activeCat)
 
@@ -87,7 +98,7 @@ export default function ShopContent() {
                         !activeCat ? 'text-gold-500 font-medium' : 'text-luxury-gray hover:text-gold-500'
                       }`}
                     >
-                      {s.viewAll} ({MOCK_PRODUCTS.length})
+                      {s.viewAll} ({allProducts.length})
                     </button>
                   </li>
                   {localizedCategories.map((cat) => (
@@ -100,7 +111,7 @@ export default function ShopContent() {
                             : 'text-luxury-gray hover:text-gold-500'
                         }`}
                       >
-                        {cat.name} ({MOCK_PRODUCTS.filter((p) => p.category.slug === cat.slug).length})
+                        {cat.name} ({allProducts.filter((p) => p.category.slug === cat.slug).length})
                       </button>
                     </li>
                   ))}
