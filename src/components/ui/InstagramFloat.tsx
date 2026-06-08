@@ -10,10 +10,10 @@ export default function InstagramFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Suivez-nous sur Instagram"
-      className="fixed bottom-20 left-6 z-50 flex items-center gap-2.5
-                 text-white rounded-full shadow-xl
-                 pl-3.5 pr-4 py-3 text-xs tracking-wide uppercase font-sans font-medium
-                 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+      className="fixed bottom-[68px] left-5 z-50 flex items-center gap-2
+                 text-white rounded-full shadow-lg
+                 pl-2.5 pr-3 py-2 text-[11px] tracking-wide uppercase font-sans font-medium
+                 hover:shadow-xl hover:scale-105 transition-all duration-300"
       style={{
         background: 'linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
       }}
