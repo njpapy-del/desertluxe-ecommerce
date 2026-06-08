@@ -103,15 +103,17 @@ function ImageUploader({ value, onChange, label = 'Image' }: {
 function MultiImageUploader({ values, onChange }: { values: string[]; onChange: (urls: string[]) => void }) {
   const [urlInput, setUrlInput] = useState('')
   const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
   async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
-    setUploading(true)
+    setUploading(true); setUploadError('')
     const fd = new FormData(); fd.append('file', file)
     const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
     if (res.ok) { const { url } = await res.json(); onChange([...values, url]) }
+    else { const { error } = await res.json().catch(() => ({})); setUploadError(error || 'Upload échoué') }
     setUploading(false)
     if (inputRef.current) inputRef.current.value = ''
   }
@@ -144,6 +146,7 @@ function MultiImageUploader({ values, onChange }: { values: string[]; onChange: 
           <Plus className="w-3 h-3" />
         </button>
       </div>
+      {uploadError && <p className="text-red-500 text-xs mt-1">{uploadError}</p>}
     </div>
   )
 }
@@ -434,12 +437,12 @@ export default function AdminDashboard() {
   async function handleSeed() {
     setSeeding(true)
     const res = await fetch('/api/admin/seed', { method: 'POST' })
+    const data = await res.json().catch(() => ({}))
     if (res.ok) {
-      const data = await res.json()
       alert(`✅ ${data.categories} catégories et ${data.products} produits importés depuis mockData.`)
       fetchCategories(); fetchProducts()
     } else {
-      alert('❌ Erreur lors du seed.')
+      alert(`❌ Erreur lors du seed.\n\n${data.error || 'Erreur inconnue'}`)
     }
     setSeeding(false)
   }

@@ -6,11 +6,15 @@ export async function GET(req: NextRequest) {
   const err = await requireAdmin(req)
   if (err) return err
 
-  const products = await prisma.product.findMany({
-    include: { category: true },
-    orderBy: { createdAt: 'desc' },
-  })
-  return NextResponse.json(products)
+  try {
+    const products = await prisma.product.findMany({
+      include: { category: true },
+      orderBy: { createdAt: 'desc' },
+    })
+    return NextResponse.json(products)
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message || 'Erreur base de données' }, { status: 500 })
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -28,26 +32,30 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Champs requis manquants' }, { status: 400 })
   }
 
-  const product = await prisma.product.create({
-    data: {
-      name,
-      nameAr:        nameAr        || null,
-      slug,
-      description,
-      descriptionAr: descriptionAr || null,
-      price:         parseFloat(price),
-      comparePrice:  comparePrice  ? parseFloat(comparePrice) : null,
-      categoryId,
-      stock:         parseInt(stock) || 0,
-      images:        images         || [],
-      featured:      featured       ?? false,
-      active:        active         ?? true,
-      badge:         badge          || null,
-      badgeAr:       badgeAr        || null,
-      rating:        5.0,
-      reviewCount:   0,
-    },
-    include: { category: true },
-  })
-  return NextResponse.json(product, { status: 201 })
+  try {
+    const product = await prisma.product.create({
+      data: {
+        name,
+        nameAr:        nameAr        || null,
+        slug,
+        description,
+        descriptionAr: descriptionAr || null,
+        price:         parseFloat(price),
+        comparePrice:  comparePrice  ? parseFloat(comparePrice) : null,
+        categoryId,
+        stock:         parseInt(stock) || 0,
+        images:        images         || [],
+        featured:      featured       ?? false,
+        active:        active         ?? true,
+        badge:         badge          || null,
+        badgeAr:       badgeAr        || null,
+        rating:        5.0,
+        reviewCount:   0,
+      },
+      include: { category: true },
+    })
+    return NextResponse.json(product, { status: 201 })
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message || 'Erreur base de données' }, { status: 500 })
+  }
 }

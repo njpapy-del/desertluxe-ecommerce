@@ -13,33 +13,41 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     badge, badgeAr, comparePrice,
   } = body
 
-  const product = await prisma.product.update({
-    where: { id: params.id },
-    data: {
-      name,
-      nameAr:        nameAr        ?? null,
-      slug,
-      description,
-      descriptionAr: descriptionAr ?? null,
-      price:         parseFloat(price),
-      comparePrice:  comparePrice  ? parseFloat(comparePrice) : null,
-      categoryId,
-      stock:         parseInt(stock) || 0,
-      images:        images         || [],
-      featured:      featured       ?? false,
-      active:        active         ?? true,
-      badge:         badge          ?? null,
-      badgeAr:       badgeAr        ?? null,
-    },
-    include: { category: true },
-  })
-  return NextResponse.json(product)
+  try {
+    const product = await prisma.product.update({
+      where: { id: params.id },
+      data: {
+        name,
+        nameAr:        nameAr        ?? null,
+        slug,
+        description,
+        descriptionAr: descriptionAr ?? null,
+        price:         parseFloat(price),
+        comparePrice:  comparePrice  ? parseFloat(comparePrice) : null,
+        categoryId,
+        stock:         parseInt(stock) || 0,
+        images:        images         || [],
+        featured:      featured       ?? false,
+        active:        active         ?? true,
+        badge:         badge          ?? null,
+        badgeAr:       badgeAr        ?? null,
+      },
+      include: { category: true },
+    })
+    return NextResponse.json(product)
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message || 'Erreur base de données' }, { status: 500 })
+  }
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   const err = await requireAdmin(req)
   if (err) return err
 
-  await prisma.product.delete({ where: { id: params.id } })
-  return NextResponse.json({ success: true })
+  try {
+    await prisma.product.delete({ where: { id: params.id } })
+    return NextResponse.json({ success: true })
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message || 'Erreur base de données' }, { status: 500 })
+  }
 }

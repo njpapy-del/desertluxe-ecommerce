@@ -5,12 +5,20 @@ export async function POST(req: NextRequest) {
   const err = await requireAdmin(req)
   if (err) return err
 
-  const supabaseUrl     = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const serviceRoleKey  = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const supabaseUrl    = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()
 
   if (!supabaseUrl || !serviceRoleKey) {
     return NextResponse.json(
       { error: 'Storage non configuré. Ajoutez NEXT_PUBLIC_SUPABASE_URL et SUPABASE_SERVICE_ROLE_KEY dans Vercel.' },
+      { status: 503 }
+    )
+  }
+
+  // Validate that the key is a proper JWT (3 dot-separated parts)
+  if (serviceRoleKey.split('.').length !== 3) {
+    return NextResponse.json(
+      { error: 'SUPABASE_SERVICE_ROLE_KEY invalide. Vérifiez que vous avez copié la clé "service_role" complète depuis Supabase → Settings → API (format : xxx.yyy.zzz).' },
       { status: 503 }
     )
   }
