@@ -468,11 +468,17 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
       <aside className="w-56 bg-luxury-dark text-white flex flex-col shrink-0 h-screen sticky top-0 overflow-y-auto">
-        <div className="p-6 border-b border-white/10">
-          <span className="font-serif text-xl tracking-wider">
-            MY<span className="text-gold-500">LUXURY</span>
-          </span>
-          <p className="text-[10px] text-cream-500 font-sans tracking-[0.2em] uppercase mt-1">Admin</p>
+        <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between gap-2">
+          <div>
+            <span className="font-serif text-xl tracking-wider">
+              MY<span className="text-gold-500">LUXURY</span>
+            </span>
+            <p className="text-[10px] text-cream-500 font-sans tracking-[0.2em] uppercase mt-0.5">Admin</p>
+          </div>
+          <button onClick={logout} title="Déconnexion"
+            className="flex items-center gap-1.5 bg-red-600 hover:bg-red-700 text-white text-[10px] font-sans font-medium px-2.5 py-1.5 rounded transition-colors shrink-0">
+            <LogOut className="w-3 h-3" /> Quitter
+          </button>
         </div>
 
         <nav className="flex-1 py-6">
@@ -486,14 +492,10 @@ export default function AdminDashboard() {
           ))}
         </nav>
 
-        <div className="p-6 border-t border-white/10 space-y-2">
+        <div className="p-6 border-t border-white/10">
           <Link href="/" className="block text-xs text-cream-400 hover:text-gold-400 font-sans transition-colors">
             ← Voir le site
           </Link>
-          <button onClick={logout}
-            className="w-full flex items-center gap-2 px-3 py-2 text-xs font-sans font-medium text-white bg-red-600/80 hover:bg-red-600 transition-colors rounded-sm">
-            <LogOut className="w-3.5 h-3.5" /> Déconnexion
-          </button>
         </div>
       </aside>
 
