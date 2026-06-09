@@ -394,7 +394,7 @@ const STATUS_COLORS: Record<string, string> = {
   CANCELLED:  'bg-red-100 text-red-700',
 }
 
-type Tab = 'dashboard' | 'categories' | 'products' | 'orders'
+type Tab = 'dashboard' | 'categories' | 'products' | 'manage' | 'orders'
 
 export default function AdminDashboard() {
   const [tab, setTab]           = useState<Tab>('dashboard')
@@ -408,6 +408,7 @@ export default function AdminDashboard() {
   const [catModal, setCatModal]       = useState<{ open: boolean; cat: Partial<DbCategory> | null }>({ open: false, cat: null })
   const [prodModal, setProdModal]     = useState<{ open: boolean; prod: Partial<DbProduct> | null }>({ open: false, prod: null })
   const [deleteTarget, setDeleteTarget] = useState<{ type: 'cat' | 'prod'; id: string; name: string } | null>(null)
+  const [manageCategory, setManageCategory] = useState('')
 
   const fetchCategories = useCallback(async () => {
     const res = await fetch('/api/admin/categories')
@@ -459,6 +460,7 @@ export default function AdminDashboard() {
     { id: 'dashboard',  label: 'Tableau de bord', icon: TrendingUp  },
     { id: 'categories', label: 'Catégories',       icon: Layers      },
     { id: 'products',   label: 'Produits',         icon: Package     },
+    { id: 'manage',     label: 'Gestion produits', icon: Edit        },
     { id: 'orders',     label: 'Commandes',        icon: ShoppingCart },
   ]
 
@@ -689,6 +691,123 @@ export default function AdminDashboard() {
                     )}
                   </tbody>
                 </table>
+              </div>
+            </div>
+          )}
+
+          {/* ── Manage (Gestion produits) ── */}
+          {tab === 'manage' && (
+            <div>
+              <h1 className="font-serif text-2xl text-luxury-dark mb-8">Gestion des produits</h1>
+
+              {/* Category filter */}
+              <div className="mb-6">
+                <label className="block text-xs font-sans font-medium text-luxury-dark tracking-wider uppercase mb-2">
+                  Filtrer par catégorie
+                </label>
+                <div className="relative max-w-xs">
+                  <select
+                    value={manageCategory}
+                    onChange={e => setManageCategory(e.target.value)}
+                    className={`${INPUT} appearance-none pr-8`}
+                  >
+                    <option value="">Toutes les catégories ({products.length} produits)</option>
+                    {categories.map(c => (
+                      <option key={c.id} value={c.id}>
+                        {c.name} ({products.filter(p => p.categoryId === c.id).length})
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gray pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Products list */}
+              <div className="space-y-3 mb-12">
+                {(manageCategory ? products.filter(p => p.categoryId === manageCategory) : products).map(p => (
+                  <div key={p.id} className="bg-white shadow-card p-4 flex items-center gap-4">
+                    <div className="relative w-16 h-16 bg-cream-200 overflow-hidden shrink-0">
+                      {p.images[0]
+                        ? <Image src={p.images[0]} alt={p.name} fill className="object-cover" sizes="64px" />
+                        : <ImageIcon className="w-6 h-6 text-cream-400 m-auto mt-5" />}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-sm font-sans font-medium text-luxury-dark">{p.name}</span>
+                        <span className={`text-[10px] font-sans px-1.5 py-0.5 ${p.active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                          {p.active ? 'Actif' : 'Inactif'}
+                        </span>
+                        {p.badge && <span className="text-[10px] font-sans px-1.5 py-0.5 bg-gold-100 text-gold-700">{p.badge}</span>}
+                      </div>
+                      <p className="text-xs text-luxury-gray font-sans mt-0.5">
+                        {p.category.name} — <span className="font-semibold text-luxury-dark">{p.price} €</span>
+                        {p.comparePrice ? <span className="line-through ml-1 text-luxury-light">{p.comparePrice} €</span> : null}
+                        <span className="ml-2">Stock: {p.stock}</span>
+                      </p>
+                      {p.description && <p className="text-[11px] text-luxury-gray font-sans mt-1 line-clamp-1">{p.description}</p>}
+                    </div>
+                    <div className="flex gap-2 shrink-0">
+                      <button
+                        onClick={() => setProdModal({ open: true, prod: p })}
+                        className="flex items-center gap-1 border border-cream-400 px-3 py-1.5 text-xs font-sans text-luxury-dark hover:border-gold-500 hover:text-gold-500 transition-colors"
+                      >
+                        <Edit className="w-3.5 h-3.5" /> Modifier
+                      </button>
+                      <button
+                        onClick={() => setDeleteTarget({ type: 'prod', id: p.id, name: p.name })}
+                        className="flex items-center gap-1 border border-red-200 px-3 py-1.5 text-xs font-sans text-red-500 hover:bg-red-50 hover:border-red-400 transition-colors"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" /> Supprimer
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                {(manageCategory ? products.filter(p => p.categoryId === manageCategory) : products).length === 0 && (
+                  <p className="text-xs text-luxury-gray font-sans py-4">Aucun produit{manageCategory ? ' dans cette catégorie' : ''}.</p>
+                )}
+              </div>
+
+              {/* Categories section */}
+              <div className="border-t border-cream-300 pt-8">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="font-serif text-xl text-luxury-dark">Catégories ({categories.length})</h2>
+                  <button onClick={() => setCatModal({ open: true, cat: null })}
+                    className="flex items-center gap-1.5 text-xs border border-cream-400 px-4 py-2 font-sans text-luxury-gray hover:border-gold-500 hover:text-gold-500 transition-colors">
+                    <Plus className="w-3.5 h-3.5" /> Nouvelle catégorie
+                  </button>
+                </div>
+                <div className="space-y-3">
+                  {categories.map(cat => (
+                    <div key={cat.id} className="bg-white shadow-card p-4 flex items-center gap-4">
+                      <div className="relative w-16 h-16 bg-cream-200 overflow-hidden shrink-0">
+                        {cat.image
+                          ? <Image src={cat.image} alt={cat.name} fill className="object-cover" sizes="64px" />
+                          : <ImageIcon className="w-6 h-6 text-cream-400 m-auto mt-5" />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-sans font-medium text-luxury-dark">{cat.name}</p>
+                        {cat.nameAr && <p className="text-xs text-luxury-gray font-sans mt-0.5" dir="rtl">{cat.nameAr}</p>}
+                        <p className="text-[10px] text-gold-500 font-sans mt-0.5">
+                          {cat.slug} — {products.filter(p => p.categoryId === cat.id).length} produits
+                        </p>
+                      </div>
+                      <div className="flex gap-2 shrink-0">
+                        <button
+                          onClick={() => setCatModal({ open: true, cat })}
+                          className="flex items-center gap-1 border border-cream-400 px-3 py-1.5 text-xs font-sans text-luxury-dark hover:border-gold-500 hover:text-gold-500 transition-colors"
+                        >
+                          <Edit className="w-3.5 h-3.5" /> Modifier
+                        </button>
+                        <button
+                          onClick={() => setDeleteTarget({ type: 'cat', id: cat.id, name: cat.name })}
+                          className="flex items-center gap-1 border border-red-200 px-3 py-1.5 text-xs font-sans text-red-500 hover:bg-red-50 hover:border-red-400 transition-colors"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" /> Supprimer
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
