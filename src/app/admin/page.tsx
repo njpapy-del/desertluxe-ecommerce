@@ -403,6 +403,7 @@ export default function AdminDashboard() {
   const [products, setProducts]     = useState<DbProduct[]>([])
   const [loading, setLoading]   = useState(false)
   const [seeding, setSeeding]   = useState(false)
+  const [dbError, setDbError]   = useState('')
 
   const [catModal, setCatModal]       = useState<{ open: boolean; cat: Partial<DbCategory> | null }>({ open: false, cat: null })
   const [prodModal, setProdModal]     = useState<{ open: boolean; prod: Partial<DbProduct> | null }>({ open: false, prod: null })
@@ -410,12 +411,14 @@ export default function AdminDashboard() {
 
   const fetchCategories = useCallback(async () => {
     const res = await fetch('/api/admin/categories')
-    if (res.ok) setCategories(await res.json())
+    if (res.ok) { setCategories(await res.json()); setDbError('') }
+    else { const d = await res.json().catch(() => ({})); setDbError(d.error || `Erreur ${res.status}`) }
   }, [])
 
   const fetchProducts = useCallback(async () => {
     const res = await fetch('/api/admin/products')
-    if (res.ok) setProducts(await res.json())
+    if (res.ok) { setProducts(await res.json()); setDbError('') }
+    else { const d = await res.json().catch(() => ({})); setDbError(d.error || `Erreur ${res.status}`) }
   }, [])
 
   useEffect(() => {
@@ -501,6 +504,15 @@ export default function AdminDashboard() {
 
       {/* Content */}
       <div className="flex-1 overflow-auto">
+        {dbError && (
+          <div className="bg-red-50 border-b border-red-200 px-8 py-3 flex items-start gap-3">
+            <AlertTriangle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-sans font-semibold text-red-700">Erreur base de données</p>
+              <p className="text-xs font-sans text-red-600 mt-0.5 break-all">{dbError}</p>
+            </div>
+          </div>
+        )}
         <div className="p-8">
 
           {/* ── Dashboard ── */}
